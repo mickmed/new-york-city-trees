@@ -1,0 +1,39 @@
+.tree-list {
+    overflow-y: scroll;
+    height: 100%;
+    scrollbar-width: none;
+    position:absolute;
+    background-color:rgba(lightyellow, .9);
+    width:90%;
+    margin:0 auto;
+    height:70%;
+    top:0;
+    left:5%;
+    .results-title {
+        margin: .8em 0;
+        font-size: 1.1em;
+        font-family: "Roboto";
+
+        span {
+            color: blue;
+        }
+    }
+    div {
+        padding-left: 3%;
+        // max-height:50%;
+        cursor: pointer;
+
+        .spc-count {
+            font-family: "Roboto";
+            margin-bottom: 0.5em;
+        }
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .tree-list {
+        width: 25%;
+        height: 80%;
+        font-size: 1.4em;
+    }
+}

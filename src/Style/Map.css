@@ -1,0 +1,48 @@
+
+.map-wrapper{
+    width:90%;
+    margin:0 auto;
+    height:70%;
+}
+
+.popup {
+    background-color: lightyellow;
+    padding: 5px;
+    color: blue;
+    font-size: 1em;
+    /* width:300px;
+    height:300px; */
+    z-index: 5;
+  }
+
+
+
+  .mapboxgl-marker{
+    /* position:relative; */
+  
+   height:1px;
+   width:1px;
+    /* transform:translate(-3px, -3px); */
+    background:red;
+
+    
+  }
+  .treepin{
+    /* position:absolute;  */
+    background:green;
+
+    height:1px;
+    width:1px;
+    border-radius:50%;
+    /* transform:translate(-1px, -1px); */
+   
+  }
+
+
+  @media only screen and (min-width: 600px) {
+    .map-wrapper{
+        width:70%;
+        height:100%;
+    
+    }
+  }
