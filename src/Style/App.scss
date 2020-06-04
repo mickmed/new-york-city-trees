@@ -13,24 +13,25 @@ html {
       .container {
         display: flex;
         flex-direction: column;
+        align-items: center;
         height: 90vh;
         padding: 1%;
         // width:100vw;
-        position:relative;
+        position: relative;
+        
       }
     }
   }
   .footer {
     background-image: linear-gradient(white, white, lightgray);
-display:flex;
-      justify-content: center;
-      font-family:Roboto;
+    display: flex;
+    justify-content: center;
+    font-family: Roboto;
     height: 20vh;
   }
   @media only screen and (min-width: 600px) {
     .footer {
       background-image: linear-gradient(white, white, lightgray);
-      
     }
     body {
       .App {

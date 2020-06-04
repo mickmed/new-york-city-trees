@@ -43,7 +43,7 @@ class header extends Component {
       if (time === 0) {
         clearInterval(fadeOut)
         // window.scrollTo(0, (bannerHeight + 100))
-        // this.refs.img.style.display = 'none'
+        this.refs.img.style.display = 'none'
 
 
       }
@@ -53,7 +53,6 @@ class header extends Component {
 
 
   }
-
 
 
   render() {

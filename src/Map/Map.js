@@ -1,12 +1,13 @@
 import React, { Component } from "react"
 import ReactMapGL, { Marker, NavigationControl, Popup } from "react-map-gl"
 // import TreePin from "./tree-pin.js";
-import TreeInfo from "../TreesList/TreeInfo.js";
+import TreeInfo from "../TreesList/TreeInfo.js"
 // import ControlPanel from "./control-panel.js";
 import "../Style/Map.css"
 
-const MAPBOX_TOKEN =
-  process.env.REACT_APP_MAPBOX
+import ReactDOM from "react-dom"
+
+const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX
 
 const navStyle = {
   position: "absolute",
@@ -20,6 +21,7 @@ class Map extends Component {
     super(props)
 
     this.state = {
+      showFilters:false,
       // trees: [],
       // boroname: "&boroname=Manhattan",
       // zipcode: "",
@@ -40,13 +42,13 @@ class Map extends Component {
       // popupInfo: null,
       // tree: null
     }
-
   }
   componentDidMount() {
     this.resizeMap()
+   
   }
   resizeMap = () => {
-    console.log('resize')
+    console.log("resize")
     const mapDims = document.querySelector(".map-wrapper")
     this.onViewportChange({
       width: mapDims.offsetWidth,
@@ -54,74 +56,85 @@ class Map extends Component {
     })
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log('cdu')
+    console.log("cdu")
     let { treesData, searchString } = this.props
     if (treesData !== prevProps.treesData) {
       this.changeLongLat(treesData, searchString)
     }
+
   }
   changeLongLat = (treesData, searchString) => {
     console.log(searchString, treesData)
-    let index = searchString === '00083' ? treesData.length - 100 : treesData.length - 1
+    let index =
+      searchString === "00083" ? treesData.length - 100 : treesData.length - 1
     let len = treesData.length
     let zoom = len < 10 ? 17 : len < 100 ? 14 : 12
-    let iconSize = len < 10 ? '20' : len < 100 ? '10' : '1'
+    let iconSize = len < 10 ? "20" : len < 100 ? "10" : "4"
     let style = {
-      height: iconSize+'px',
-      width: iconSize+'px',
-      transform: `translate(${(iconSize/2)}px,${iconSize/2}px)`
+      height: iconSize + 'px',
+      width: iconSize + 'px',
+      transform: `translate('${80}px','${80}px')`,
+      background: `green`
     }
-    const mapDims = document.querySelector(".map-wrapper")
-
+console.log(style)
     treesData[0] &&
-      this.onViewportChange({
-        longitude: parseFloat(treesData[index].longitude),
-        latitude: parseFloat(treesData[index].latitude),
-        zoom: zoom
-      }, style)
-
+      this.onViewportChange(
+        {
+          longitude: parseFloat(treesData[index].longitude),
+          latitude: parseFloat(treesData[index].latitude),
+          zoom: zoom,
+        },
+        style
+      )
   }
   resizeIcon = (viewport) => {
     console.log(viewport)
     let zoom = viewport.zoom
-    let iconSize = zoom < 12 ? '3px' : zoom < 15 ? '5px' : '10px'
+    let iconSize = zoom < 10 ? "2" : zoom < 13 ? "3" : zoom < 16 ? "5" : zoom < 18 ? "15" : "20"
     let style = {
-      height: iconSize,
-      width: iconSize,
-      transform: `translate(${iconSize},${iconSize})`
+      height: iconSize + 'px',
+      width: iconSize + 'px',
+      // transform: `translate(${iconSize^2}px,${iconSize^2}px)`,
+
+      background: `green`
+
     }
+    console.log(style)
     this.onViewportChange(viewport, style)
 
     // let iconSize = zoom < 12 ? '20px' : zoom < 17 ? '10px' : '5px'
   }
 
   onViewportChange = (viewport, style) => {
-    console.log(viewport)
+    console.log(viewport, style)
     this.setState((prevState) => ({
       viewport: {
-        ...prevState.viewport, ...viewport,
+        ...prevState.viewport,
+        ...viewport,
       },
-      style: style
+      style: style,
     }))
   }
-
-
+ 
   // static getDerivedStateFromProps(nextProps, prevState) {
   //   if (nextProps.treesData !== prevState.treesData) {
   //     return { treesData: nextProps.treesData }
   //   } else return null
   // }
 
-
-
-
   _renderMarker = (tree, index) => {
+    // let markers = ReactDOM.findDOMNode(this)
+  
+    console.log(this.state.marker)
+
     return (
       <Marker
+      // className='treepin'
+
+      // style={{backgroundColor:"black !mportant", height:"50px", width:"50px"}}
         key={index}
         longitude={parseFloat(tree.longitude)}
         latitude={parseFloat(tree.latitude)}
-
       >
         <div
           className="treepin"
@@ -133,15 +146,15 @@ class Map extends Component {
             })
           }
         >
-          {/* {tree.status === "Alive" && (
+        {/* {tree.status === "Alive" && (
             <p className="tree-emoji-alive" style={this.state.style}>{`\u{1F333}`}</p>
           )} */}
 
-          {/* {tree.status === 'Alive' && (
+        {/* {tree.status === 'Alive' && (
             <img src='images/tree3.png' className="tree-emoji-alive" style={this.state.style}/>
           )} */}
 
-          {/* {tree.status === "Stump" && (
+        {/* {tree.status === "Stump" && (
             <p className="tree-emoji-stump" title={`\u{1F96B}`}>{`\u{1F96B}`}</p>
           )}
 
@@ -168,10 +181,9 @@ class Map extends Component {
   }
 
   _renderPopup(map) {
-    const { tree } = this.state;
+    const { tree } = this.state
 
     return (
-
       tree && (
         <Popup
           tipSize={50}
@@ -183,10 +195,9 @@ class Map extends Component {
           onClose={() => this.setState({ tree: null })}
         >
           <TreeInfo info={tree} />
-
         </Popup>
       )
-    );
+    )
   }
 
   render() {
@@ -194,8 +205,12 @@ class Map extends Component {
     const trees = this.props.treesData && this.props.treesData
 
     return (
-      <div className='map-wrapper'>
+      <div className="map-wrapper">
 
+        {
+        <ion-icon onClick={this.props.handleFilterClick} name="funnel-outline"></ion-icon>
+        
+        }
         <ReactMapGL
           className="map"
           width={viewport.width}
@@ -204,19 +219,18 @@ class Map extends Component {
           longitude={viewport.longitude}
           zoom={viewport.zoom}
           mapStyle="mapbox://styles/mapbox/streets-v9"
-          onViewportChange={this.onViewportChange}
+          onViewportChange={this.resizeIcon}
           mapboxApiAccessToken={MAPBOX_TOKEN}
         >
           {/* <div onLoad={this.hello} /> */}
           {/* {this.state.tree && this.state.tree.latitude} */}
           {trees.length && trees.map(this._renderMarker)}
 
-          {/* {this._renderPopup()} */}
+          {this._renderPopup()}
           <div className="nav" style={navStyle}>
             <NavigationControl onViewportChange={this.resizeIcon} />
           </div>
         </ReactMapGL>
-
       </div>
     )
   }

@@ -8,12 +8,12 @@ class TreeInfo extends PureComponent {
 
     return (
       <div className="popup">
-        {/* <p>place: {info.address}</p>
-        <p>longitude: {info.latitude}</p>
-        <p>latitude: {info.longitude}</p> */}
-        {/* <p>magnitude: {info.mag}</p> */}
-        {/* <p>time: {new Date(info.time).toString()}</p> */}
-        treesData.address
+        <p>{info.spc_common}</p>
+
+        <p>{info.address}</p>
+        <p>{info.zip_city}</p>
+
+    
       </div>
     );
   }

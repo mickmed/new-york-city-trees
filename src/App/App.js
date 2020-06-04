@@ -8,7 +8,6 @@ import Footer from "./Footer"
 
 import { getManhattan, getAddress, getBySpecies } from "./Api"
 
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -21,23 +20,27 @@ class App extends Component {
       health: "",
       fixHeader: false,
       input: "",
-      searchString: ''
+      searchString: "",
+      showFilters: false,
     }
   }
 
   async componentDidMount() {
-    await this.getAddress('00083', 'zipcode')
+    await this.getAddress("00083", "zipcode")
   }
 
   onSubmit = (evt) => {
     evt.preventDefault()
   }
   getManhattanTrees = async () => {
-    console.log('manhattan')
+    console.log("manhattan")
     let trees = await axios.get(getManhattan())
     console.log(trees)
-    this.setState({ trees: trees.data, searchString: 'Manhattan', searchType: 'the boro of' })
-
+    this.setState({
+      trees: trees.data,
+      searchString: "Manhattan",
+      searchType: "the boro of",
+    })
   }
   getAddress = async (srch, type) => {
     console.log(type)
@@ -47,7 +50,7 @@ class App extends Component {
 
   speciesListClick = async (spc, srch) => {
     let trees = await axios.get(getBySpecies(spc, srch))
-    this.setState({ trees: trees.data })
+    this.setState({ trees: trees.data, showFilters: !this.state.showFilters })
   }
 
   handleClickSearch = (clickedValue) => {
@@ -56,9 +59,22 @@ class App extends Component {
     })
     this.getAddress(clickedValue)
   }
+
+  handleFilterClick = () => {
+    this.setState({
+      showFilters: !this.state.showFilters
+    })
+  }
   render() {
-    const { onSubmit, getAddress, handleClickSearch, speciesListClick } = this
-    const { trees, searchString, fixHeader, searchType } = this.state
+    const { onSubmit, getAddress, handleClickSearch, speciesListClick, handleFilterClick} = this
+    const {
+      trees,
+      searchString,
+      fixHeader,
+      searchType,
+      showFilters,
+    } = this.state
+    console.log(searchString)
     return (
       <div className="App">
         <Header
@@ -69,13 +85,21 @@ class App extends Component {
           getAddress={getAddress}
         />
 
-
         <main className="container">
+        <div className="results-title">
+                {`${searchType}`}
+                <span
+                  onClick={() => getAddress(searchString, searchType)}
+                >{` ${searchString}`}</span>
+              </div>
           <Map
             treesData={trees}
             searchString={searchString}
+            handleFilterClick={handleFilterClick}
+            showFilters={showFilters}
           />
-          {searchString !== '00083' &&
+          {(
+            showFilters &&
             <TreesList
               treesData={trees}
               fixHeader={fixHeader}
@@ -84,7 +108,10 @@ class App extends Component {
               speciesListClick={speciesListClick}
               getAddress={getAddress}
               searchType={searchType}
-            />}
+            showFilters={showFilters}
+
+            />
+          )}
         </main>
         <Footer />
       </div>

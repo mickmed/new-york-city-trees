@@ -1,48 +1,38 @@
-
-.map-wrapper{
-    width:90%;
-    margin:0 auto;
-    height:70%;
+.map-wrapper {
+  width: 90%;
+  margin: 0 auto;
+  height: 90%;
+  position: relative;
 }
 
 .popup {
-    background-color: lightyellow;
-    padding: 5px;
-    color: blue;
-    font-size: 1em;
-    /* width:300px;
+  background-color: lightyellow;
+  padding: 5px;
+  color: blue;
+  font-size: 1em;
+  /* width:300px;
     height:300px; */
-    z-index: 5;
+  z-index: 5;
+}
+ion-icon {
+  position: absolute;
+  right: 2%;
+  top: 2%;
+  font-size: 2em;
+  background-color: white;
+  color: blue;
+  z-index: 7;
+}
+
+.treepin {
+  background: green;
+
+  border-radius: 50%;
+}
+
+@media only screen and (min-width: 600px) {
+  .map-wrapper {
+    width: 70%;
+    height: 100%;
   }
-
-
-
-  .mapboxgl-marker{
-    /* position:relative; */
-  
-   height:1px;
-   width:1px;
-    /* transform:translate(-3px, -3px); */
-    background:red;
-
-    
-  }
-  .treepin{
-    /* position:absolute;  */
-    background:green;
-
-    height:1px;
-    width:1px;
-    border-radius:50%;
-    /* transform:translate(-1px, -1px); */
-   
-  }
-
-
-  @media only screen and (min-width: 600px) {
-    .map-wrapper{
-        width:70%;
-        height:100%;
-    
-    }
-  }
+}

@@ -59,7 +59,7 @@ class SearchBar extends React.Component {
     trees.data.forEach((tree) => {
       suggestions.forEach((type, i) => {
         if (tree[type.title].toLowerCase().includes(value.toLowerCase())) {
-          if (suggestions[i].suggestions.length < 5) {
+          if (suggestions[i].suggestions.length < 15) {
             if (!suggestions[i].suggestions.filter(e => e.text === tree[type.title]).length > 0) {
               suggestions[i].suggestions.push({ text: tree[type.title] })
 
@@ -110,7 +110,7 @@ class SearchBar extends React.Component {
         <Autosuggest
           inputProps={{
             placeholder: "address...",
-            autoComplete: "abcd",
+            
             value: value,
             type: "text",
             name: "input",

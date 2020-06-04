@@ -3,12 +3,6 @@ import capitalize from "./Shared"
 
 const TOKEN = process.env.REACT_APP_TOKEN
 
-
-
-
-
-
-
 const baseURL =
   `https://data.cityofnewyork.us/resource/5rq2-4hqu.json?` +
   `$$app_token=${TOKEN}` +
@@ -16,19 +10,12 @@ const baseURL =
   `&$order=address` +
   `&$where=`
   
-
-
   export const getManhattan = () => {
     const manhattan = `boroname%20like%20%27%25Manhattan%25%27` 
     console.log(baseURL + manhattan)
     return baseURL + manhattan
   }  
-
-
-
 let address = ''
-
-
 
 const spaceFiller = (srch) => {
   let srchArr = srch.split('')

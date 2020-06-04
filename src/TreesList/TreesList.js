@@ -39,10 +39,15 @@ class TreesList extends React.Component {
     return s.charAt(0).toUpperCase() + s.slice(1)
   }
 
-
-
   render() {
-    const { searchString, searchType, treesData, speciesListClick, getAddress } = this.props
+    const {
+      searchString,
+      searchType,
+      treesData,
+      speciesListClick,
+      getAddress,
+      showFilters,
+    } = this.props
     const { capitalize, handleClick } = this
     console.log(searchType)
     //sort by count
@@ -54,36 +59,38 @@ class TreesList extends React.Component {
     for (let spc in spcCount) {
       sorted.push([capitalize(spc), spcCount[spc]])
     }
-    sorted.sort(function (a, b) {
+    sorted.sort(function(a, b) {
       return a[1] - b[1]
     })
-    // console.log(sorted.reverse())
+    sorted.reverse()
+    console.log(showFilters)
+
     return (
+      //  {showFilters && (
       <div className="tree-list">
         {treesData.length !== 0 ? (
-          <div className="results-title">
-            {`${treesData.length} trees for ${searchType}`}
-            <span onClick={()=>getAddress(searchString, searchType)}>{` ${searchString}`}</span>
-          </div>
+          <div>
+           
+           
+         
+           
+           
+                {sorted.map((trees) => (
+                  <div
+                    className="spc-count"
+                    onClick={() => speciesListClick(trees[0], searchString)}
+                  >{`${trees[0]} \u00A0 ${trees[1]}`}</div>
+                ))}
+             
+          
+          </div>  
         ) : (
           <div>
-          <img src='./images/tree.gif'/>
-          
-</div>
-          )}
-        <div>
-          {/* {Object.keys(spcCount).map((spc, i) => {
-            return (
-              <div className="spc-count" key={i}>{`${spc} ${
-                spcCount[spc]
-              }`}</div>
-            )
-          })} */}
-          {sorted.map(trees => <div className='spc-count' onClick={() => speciesListClick(trees[0], searchString)}>{`${trees[0]} \u00A0 ${trees[1]}`}</div>)}
+            <img src="./images/tree.gif" />
+          </div>
+        )}
 
-
-        </div>
-        <div className="arrow" />
+     
       </div>
     )
   }
