@@ -104,6 +104,8 @@ class SearchBar extends Component {
   }
 
   onSuggestionsClearRequested = () => {
+    console.log('press')
+    console.log('hi thee')
     this.setState({
       suggestions: [],
     })
@@ -129,8 +131,14 @@ class SearchBar extends Component {
     // return suggestion.text
   }
 
-  onKeyPress = (str) => {
-    this.props.getAddress(str)
+  onKeyPress = async(str) => {
+    await this.props.getAddress(str, 'keyPress')
+    this.onSuggestionsClearRequested()
+
+    // setTimeout(()=>{
+    //   this.onSuggestionsClearRequested()
+
+    // },300)
   }
 
   render() {

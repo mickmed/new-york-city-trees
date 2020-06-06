@@ -202,11 +202,18 @@ class Map extends Component {
 
   render() {
     const { viewport} = this.state
-    const { showFilters, searchString, handleClickSearch, speciesListClick, getAddress, searchType, scrollToView } = this.props
+    const { showFilters, searchString, handleClickSearch, speciesListClick, getAddress, searchType, scrollToView, keyPress } = this.props
     const trees = this.props.treesData && this.props.treesData
-
+ let style=keyPress ? {display:'block'} : {display:'none'}
     return (
       <div className="map-wrapper" onClick={()=>this.props.scrollHeader()}>
+         
+
+          
+           <div className='tree-gif' style={style}>
+            <img src="./images/tree.gif" />
+          </div>
+         
        
           <ion-icon
             onClick={()=>this.props.handleFilterClick()}

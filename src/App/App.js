@@ -22,6 +22,7 @@ class App extends Component {
       searchString: "",
       showFilters: false,
       scrollHeader: false,
+      keyPress: false
     }
   }
 
@@ -44,8 +45,20 @@ class App extends Component {
   }
   getAddress = async (srch, type) => {
     console.log(type)
+
+    if(type === 'keyPress'){
+      this.setState({
+        // trees:[]
+        keyPress:true
+      })
+      
+    }
     let trees = await axios.get(getAddress(srch))
-    this.setState({ trees: trees.data, searchString: srch, searchType: type })
+    this.setState({ trees: trees.data, searchString: srch, searchType: type, keyPress:false })
+  }
+
+  getX = async (srch, type) => {
+
   }
 
   speciesListClick = async (spc, srch) => {
@@ -90,6 +103,7 @@ class App extends Component {
       fixHeader,
       searchType,
       showFilters,
+      keyPress
     } = this.state
     // console.log(searchString)
     return (
@@ -110,7 +124,7 @@ class App extends Component {
 
         <main className="container">
           <div className="results-title">
-            {searchType !== undefined
+            {searchType !== undefined && searchType !== 'keyPress'
               ? `${searchType}`
               : trees.length !== 0
               ? "result"
@@ -118,7 +132,7 @@ class App extends Component {
             <span
               onClick={() => getAddress(searchString, searchType)}
             >{` ${searchString}`}</span>
-            {trees.length !== 0 && <span style={{fontSize:'10px'}}>{` (${trees.length})`}</span>}
+            {trees.length !== 0 && <span style={{fontSize:'12px'}}>{` (${trees.length})`}</span>}
           </div>
           <Map
             treesData={trees}
@@ -133,6 +147,7 @@ class App extends Component {
             speciesListClick={speciesListClick}
             getAddress={getAddress}
             searchType={searchType}
+            keyPress={keyPress}
           />
         </main>
         <Footer />
