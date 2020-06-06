@@ -1,0 +1,53 @@
+.map-wrapper {
+  width: 90%;
+  margin: 0 auto;
+  height: 90%;
+  position: relative;
+  /* margin-top:40%; */
+  ion-icon {
+    position: absolute;
+    left: 2%;
+    top: 1%;
+    font-size: .25em;
+    background-color: white;
+    color: black;
+    z-index: 3;
+  }
+  .nav {
+    position: absolute;
+    top: 8px;
+    right: 4px;
+
+    div {
+      position: absolute;
+      top: 8px;
+      right: 4px;
+    }
+  }
+
+  .popup {
+    background-color: lightyellow;
+    padding: 5px;
+    color: blue;
+    font-size: 1em;
+    /* width:300px;
+    height:300px; */
+    z-index: 5;
+  }
+
+  .treepin {
+    background: green;
+
+    border-radius: 50%;
+  }
+
+  @media only screen and (min-width: 600px) {
+    
+    
+        ion-icon {
+          font-size:4em;
+          left:1%;
+        }
+      }
+   
+  }

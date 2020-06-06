@@ -98,20 +98,8 @@ Based on the initial logic defined in the previous sections try and breakdown th
 Use this section to include a brief code snippet of functionality that you are proud of an a brief description  
 
 //this updates the initial state of viewport (latitude and longitude) so that when the page loads the map centers on the first tree in the array.
-```
-  componentWillReceiveProps = props => {
-    props.treesData[0] &&
-      this.setState(prevState => ({
-        viewport: {
-          ...prevState.viewport,
-          longitude: parseFloat(props.treesData[0].longitude),
-          latitude: parseFloat(props.treesData[0].latitude),
-          zoom: this.props.boro===''?11:14
-        }
-      }));
-    
-  };
-```
+
+
 
 ## Change Log
  Map zoom size changes depending on whether a boro is selected or not. 

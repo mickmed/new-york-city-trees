@@ -3,9 +3,10 @@ import ReactMapGL, { Marker, NavigationControl, Popup } from "react-map-gl"
 // import TreePin from "./tree-pin.js";
 import TreeInfo from "../TreesList/TreeInfo.js"
 // import ControlPanel from "./control-panel.js";
-import "../Style/Map.css"
+import "../Style/Map.scss"
+import TreesList from "../TreesList/TreesList"
 
-import ReactDOM from "react-dom"
+
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX
 
@@ -21,7 +22,7 @@ class Map extends Component {
     super(props)
 
     this.state = {
-      showFilters:false,
+      showFilters: false,
       // trees: [],
       // boroname: "&boroname=Manhattan",
       // zipcode: "",
@@ -30,7 +31,7 @@ class Map extends Component {
       // health: "",
 
       viewport: {
-        width: 500,
+        width: 1200,
         height: 600,
         latitude: 0,
         longitude: 0,
@@ -45,10 +46,8 @@ class Map extends Component {
   }
   componentDidMount() {
     this.resizeMap()
-   
   }
   resizeMap = () => {
-    console.log("resize")
     const mapDims = document.querySelector(".map-wrapper")
     this.onViewportChange({
       width: mapDims.offsetWidth,
@@ -56,27 +55,25 @@ class Map extends Component {
     })
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log("cdu")
     let { treesData, searchString } = this.props
     if (treesData !== prevProps.treesData) {
       this.changeLongLat(treesData, searchString)
     }
-
   }
   changeLongLat = (treesData, searchString) => {
-    console.log(searchString, treesData)
     let index =
-      searchString === "00083" ? treesData.length - 100 : treesData.length - 1
+      treesData.length > 99 && searchString === "00083" ? treesData.length - 100 : treesData.length - 1
     let len = treesData.length
-    let zoom = len < 10 ? 17 : len < 100 ? 14 : 12
+    let zoom = len < 10 ? 17 : len < 100 ? 14 : 13
     let iconSize = len < 10 ? "20" : len < 100 ? "10" : "4"
     let style = {
-      height: iconSize + 'px',
-      width: iconSize + 'px',
+      height: iconSize + "px",
+      width: iconSize + "px",
       transform: `translate('${80}px','${80}px')`,
-      background: `green`
+      background: `green`,
     }
-console.log(style)
+    // console.log(treesData[0], index)
+    
     treesData[0] &&
       this.onViewportChange(
         {
@@ -88,25 +85,30 @@ console.log(style)
       )
   }
   resizeIcon = (viewport) => {
-    console.log(viewport)
     let zoom = viewport.zoom
-    let iconSize = zoom < 10 ? "2" : zoom < 13 ? "3" : zoom < 16 ? "5" : zoom < 18 ? "15" : "20"
+    let iconSize =
+      zoom < 10
+        ? "2"
+        : zoom < 13
+        ? "3"
+        : zoom < 16
+        ? "5"
+        : zoom < 18
+        ? "15"
+        : "20"
     let style = {
-      height: iconSize + 'px',
-      width: iconSize + 'px',
+      height: iconSize + "px",
+      width: iconSize + "px",
       // transform: `translate(${iconSize^2}px,${iconSize^2}px)`,
 
-      background: `green`
-
+      background: `green`,
     }
-    console.log(style)
     this.onViewportChange(viewport, style)
 
     // let iconSize = zoom < 12 ? '20px' : zoom < 17 ? '10px' : '5px'
   }
 
   onViewportChange = (viewport, style) => {
-    console.log(viewport, style)
     this.setState((prevState) => ({
       viewport: {
         ...prevState.viewport,
@@ -115,7 +117,7 @@ console.log(style)
       style: style,
     }))
   }
- 
+
   // static getDerivedStateFromProps(nextProps, prevState) {
   //   if (nextProps.treesData !== prevState.treesData) {
   //     return { treesData: nextProps.treesData }
@@ -124,14 +126,13 @@ console.log(style)
 
   _renderMarker = (tree, index) => {
     // let markers = ReactDOM.findDOMNode(this)
-  
-    console.log(this.state.marker)
+
 
     return (
       <Marker
-      // className='treepin'
+        // className='treepin'
 
-      // style={{backgroundColor:"black !mportant", height:"50px", width:"50px"}}
+        // style={{backgroundColor:"black !mportant", height:"50px", width:"50px"}}
         key={index}
         longitude={parseFloat(tree.longitude)}
         latitude={parseFloat(tree.latitude)}
@@ -139,22 +140,21 @@ console.log(style)
         <div
           className="treepin"
           style={this.state.style}
-
-          onClick={() =>
-            this.setState({
-              tree: tree,
-            })
-          }
+          // onClick={() =>
+          //   this.setState({
+          //     tree: tree,
+          //   })
+          // }
         >
-        {/* {tree.status === "Alive" && (
+          {/* {tree.status === "Alive" && (
             <p className="tree-emoji-alive" style={this.state.style}>{`\u{1F333}`}</p>
           )} */}
 
-        {/* {tree.status === 'Alive' && (
+          {/* {tree.status === 'Alive' && (
             <img src='images/tree3.png' className="tree-emoji-alive" style={this.state.style}/>
           )} */}
 
-        {/* {tree.status === "Stump" && (
+          {/* {tree.status === "Stump" && (
             <p className="tree-emoji-stump" title={`\u{1F96B}`}>{`\u{1F96B}`}</p>
           )}
 
@@ -201,15 +201,17 @@ console.log(style)
   }
 
   render() {
-    const { viewport, style } = this.state
+    const { viewport} = this.state
+    const { showFilters, searchString, handleClickSearch, speciesListClick, getAddress, searchType, scrollToView } = this.props
     const trees = this.props.treesData && this.props.treesData
 
     return (
-      <div className="map-wrapper">
-
+      <div className="map-wrapper" onClick={()=>this.props.scrollHeader()}>
         {
-        <ion-icon onClick={this.props.handleFilterClick} name="funnel-outline"></ion-icon>
-        
+          <ion-icon
+            onClick={()=>this.props.handleFilterClick()}
+            name="funnel-outline"
+          />
         }
         <ReactMapGL
           className="map"
@@ -231,6 +233,19 @@ console.log(style)
             <NavigationControl onViewportChange={this.resizeIcon} />
           </div>
         </ReactMapGL>
+        {showFilters && (
+            <TreesList
+              treesData={trees}
+             
+              searchString={searchString}
+              handleClickSearch={handleClickSearch}
+              speciesListClick={speciesListClick}
+              getAddress={getAddress}
+              searchType={searchType}
+              showFilters={showFilters}
+              scrollToView={scrollToView}
+            />
+          )}
       </div>
     )
   }

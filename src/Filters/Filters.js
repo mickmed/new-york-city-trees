@@ -11,11 +11,7 @@ class Filters extends React.Component {
       trees: []
     };
   }
-  //set state of rawurl and zip to obtain zips for select
-  // componentWillReceiveProps = props => {
-  //   this.fetchData(props.treesurl + props.boroname);
-    
-  // };
+
 
   fetchData = async url => {
     await axios
@@ -53,7 +49,7 @@ class Filters extends React.Component {
           return (
             <button
               key={id}
-              onClick={this.props.sttsClk}
+              onClick={()=>this.props.sttsClk}
               value={"&status=" + el}
               style={{
                 backgroundColor:
@@ -73,7 +69,7 @@ class Filters extends React.Component {
           return (
             <button
               key={id}
-              onClick={this.props.hlthClk}
+              onClick={()=>this.props.hlthClk}
               value={"&health=" + el}
               style={{
                 backgroundColor:

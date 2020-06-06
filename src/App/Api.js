@@ -52,12 +52,12 @@ export const getAddress = (srch) => {
       str += `${e}%20like%20%27%25${address}%25%27` + orTail
     }
   })
-  console.log(baseURL + str)
+  console.log(cases, baseURL + str)
   return baseURL + str
 }
 
 export const getBySpecies = (spc, srch) => {
-
+console.log(spc,srch)
   let address = srch.includes(' ') ? spaceFiller(srch) : srch
   let spec = ''
   if (spc.includes(' ')) {
@@ -69,7 +69,7 @@ export const getBySpecies = (spc, srch) => {
   }
 
   const str =
-    `(%20spc_common%20like%20%27%25${spec.toLowerCase()}%25%27or%20spc_common%20like%20%27%25${spec}%25%27)and(%20zipcode%20like%20%27%25${address}%25%27or%20address%20like%20%27%25${address}%25%27or%20nta_name%20like%20%27%25${capitalize(address)}%25%27)`
+    `(%20spc_common%20like%20%27%25${spec.toLowerCase()}%25%27or%20spc_common%20like%20%27%25${spec}%25%27)and(%20zipcode%20like%20%27%25${address}%25%27or%20address%20like%20%27%25${address}%25%27or%20nta_name%20like%20%27%25${capitalize(address)}%25%27or%20address%20like%20%27%25${address.toUpperCase()}%25%27)`
   console.log(baseURL + str)
   return baseURL + str
 }

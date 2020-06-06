@@ -1,35 +1,29 @@
 .tree-list {
     overflow-y: scroll;
-    
+
     scrollbar-width: none;
-    position:absolute;
-    top:40%;
-    background-color:rgba(lightyellow, .9);
-    width:90%;
-    margin:0 auto;
-    height:50%;
- 
-    left:5%;
-    display:flex;
+    position: absolute;
+    top: 0;
+    background-color: rgba(rgb(42, 112, 136), 0.9);
+    width: 50%;
+    // margin:0 auto;
+    height: 100%;
+    color: white;
+    padding-top: 12%;
+    left: 0;
+    display: flex;
+    box-sizing: border-box;
     // justify-content: center;
     // display:none;
- 
+
     div {
         padding: 3%;
         // max-height:50%;
         cursor: pointer;
-        width:100%;
+        width: 100%;
 
-        .results-title{
-            padding:3%;
-            font-size:1.5em;
-
-            span{
-                color:blue;
-            }
-        }
         .spc-count {
-            display:flex;
+            display: flex;
             justify-content: space-around;
             font-family: "Roboto";
             margin-bottom: 0.5em;
@@ -39,8 +33,9 @@
 
 @media only screen and (min-width: 600px) {
     .tree-list {
-        width: 25%;
-        height: 80%;
+        width: 35%;
+        padding-top:7%;
+
         font-size: 1.4em;
     }
 }

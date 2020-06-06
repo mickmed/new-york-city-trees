@@ -4,40 +4,50 @@ html {
     margin: 0;
     padding: 0;
     width: 100vw;
-    // max-width: 1200px;
-    // margin:0 auto;
+
+    max-width: 1200px;
+    margin: 0 auto;
+    // background:rgb(39, 2, 2);
 
     .App {
       width: 100%;
-
+      // background:black;
       .container {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         height: 90vh;
-        padding: 1%;
-        // width:100vw;
+        padding: 0 1%;
+
+        font-size: 0.75em;
+        font-family: "Roboto", sans-serif;
         position: relative;
-        
+        .results-title {
+          padding: 0 3% 2%;;
+          font-size: 1.5em;
+          margin-left: 2%;
+          span {
+            color: blue;
+          }
+        }
       }
     }
-  }
-  .footer {
-    background-image: linear-gradient(white, white, lightgray);
-    display: flex;
-    justify-content: center;
-    font-family: Roboto;
-    height: 20vh;
-  }
-  @media only screen and (min-width: 600px) {
     .footer {
       background-image: linear-gradient(white, white, lightgray);
+      display: flex;
+      justify-content: center;
+      font-family: Roboto;
+      height: 20vh;
     }
+  }
+
+  @media only screen and (min-width: 600px) {
     body {
       .App {
         .container {
-          flex-direction: row;
-          justify-content: space-around;
+          .results-title {
+            font-size: 2em;
+          }
         }
       }
     }

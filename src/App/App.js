@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import "../Style/App.scss"
 import axios from "axios"
-import TreesList from "../TreesList/TreesList"
 import Map from "../Map/Map.js"
 import Header from "./Header"
 import Footer from "./Footer"
@@ -22,6 +21,7 @@ class App extends Component {
       input: "",
       searchString: "",
       showFilters: false,
+  scrollHeader:false
     }
   }
 
@@ -50,6 +50,9 @@ class App extends Component {
 
   speciesListClick = async (spc, srch) => {
     let trees = await axios.get(getBySpecies(spc, srch))
+    console.log(trees)
+    
+
     this.setState({ trees: trees.data, showFilters: !this.state.showFilters })
   }
 
@@ -61,12 +64,29 @@ class App extends Component {
   }
 
   handleFilterClick = () => {
+    // e.stopPropagation()
     this.setState({
-      showFilters: !this.state.showFilters
+      showFilters: !this.state.showFilters,
     })
   }
+scrollHeader =()=>{
+  this.setState({
+    scrollHeader:true
+  })
+
+}
+
   render() {
-    const { onSubmit, getAddress, handleClickSearch, speciesListClick, handleFilterClick} = this
+    const {
+      onSubmit,
+      getAddress,
+      handleClickSearch,
+      speciesListClick,
+      handleFilterClick,
+      scrollToView,
+      scrollHeader
+     
+    } = this
     const {
       trees,
       searchString,
@@ -74,7 +94,7 @@ class App extends Component {
       searchType,
       showFilters,
     } = this.state
-    console.log(searchString)
+    // console.log(searchString)
     return (
       <div className="App">
         <Header
@@ -83,35 +103,36 @@ class App extends Component {
           searchString={searchString}
           trees={trees}
           getAddress={getAddress}
+          scrollToView={scrollToView}
+          ref="header"
+          scrollHeader={scrollHeader}
+          scrollState={this.state.scrollHeader}
+          searchString={searchString}
+          searchType={searchType}
         />
 
         <main className="container">
-        <div className="results-title">
-                {`${searchType}`}
-                <span
-                  onClick={() => getAddress(searchString, searchType)}
-                >{` ${searchString}`}</span>
-              </div>
+          <div className="results-title">
+            {searchType !== undefined ? `${searchType}`: trees.length !== 0 ?'result' : ''}
+            <span
+              onClick={() => getAddress(searchString, searchType)}
+            >{` ${searchString}`}</span>
+          </div>
           <Map
             treesData={trees}
             searchString={searchString}
             handleFilterClick={handleFilterClick}
             showFilters={showFilters}
-          />
-          {(
-            showFilters &&
-            <TreesList
-              treesData={trees}
-              fixHeader={fixHeader}
-              searchString={searchString}
-              handleClickSearch={handleClickSearch}
-              speciesListClick={speciesListClick}
-              getAddress={getAddress}
-              searchType={searchType}
+            scrollToView={scrollToView}
+            switch={this.state.switch}
+            scrollHeader={this.scrollHeader}
             showFilters={showFilters}
-
-            />
-          )}
+            handleClickSearch={handleClickSearch}
+            speciesListClick={speciesListClick}
+            getAddress={getAddress}
+            searchType={searchType}
+          />
+          
         </main>
         <Footer />
       </div>

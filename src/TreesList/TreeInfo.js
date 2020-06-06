@@ -3,7 +3,7 @@ import React, { PureComponent } from "react";
 class TreeInfo extends PureComponent {
   render() {
     console.log(this.props)
-    const {info, treesData} = this.props
+    const {info} = this.props
     
 
     return (

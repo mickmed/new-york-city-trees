@@ -21,7 +21,7 @@ import axios from "axios"
 // }
 ///////////////////////////////////////////////////
 
-class SearchBar extends React.Component {
+class SearchBar extends Component {
   constructor(props) {
     super(props)
 
@@ -29,24 +29,22 @@ class SearchBar extends React.Component {
       value: "",
       suggestions: [],
       trees: [],
-      isMobile: false
+      isMobile: false,
     }
   }
 
-  componentDidMount(){
-    
+  componentDidMount() {
     this.isMobile() &&
-    this.setState({
-      isMobile:true
-    })
+      this.setState({
+        isMobile: true,
+      })
   }
-  isMobile() { 
-      return window.orientation > -1; 
-    } 
-
+  isMobile() {
+    return window.orientation > -1
+  }
 
   fetchRequested = async (value) => {
-    console.log('value', value)
+    console.log("value", value)
     let srch = value
     let trees =
       srch &&
@@ -54,26 +52,29 @@ class SearchBar extends React.Component {
       // srch.length % 2 !== 0 &&
       (await axios.get(getAddress(srch)))
     // console.log(trees)
-    let address = []
-    let suggestions = [{ title: 'address', suggestions: [] }, { title: 'zipcode', suggestions: [] }, { title: 'nta_name', suggestions: [] },]
+
+    let suggestions = [
+      { title: "address", suggestions: [] },
+      { title: "zipcode", suggestions: [] },
+      { title: "nta_name", suggestions: [] },
+    ]
     trees.data.forEach((tree) => {
       suggestions.forEach((type, i) => {
         if (tree[type.title].toLowerCase().includes(value.toLowerCase())) {
-          if (suggestions[i].suggestions.length < 15) {
-            if (!suggestions[i].suggestions.filter(e => e.text === tree[type.title]).length > 0) {
+          if (suggestions[i].suggestions.length < 6) {
+            if (
+              !suggestions[i].suggestions.filter(
+                (e) => e.text === tree[type.title]
+              ).length > 0
+            ) {
               suggestions[i].suggestions.push({ text: tree[type.title] })
-
             }
-
           }
         }
         // console.log(value.toLowerCase())
-
-
       })
     })
     console.log(suggestions)
-
 
     return suggestions
   }
@@ -102,6 +103,32 @@ class SearchBar extends React.Component {
     })
   }
 
+  onSuggestionSelected = (
+    event,
+    { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }
+  ) => {
+    console.log("event", event)
+    console.log("method", method)
+    console.log("suggestion", suggestion)
+    console.log("suggestionValue", suggestionValue)
+
+    console.log("suggestionIndex", suggestionIndex)
+    console.log("sectionIndex", sectionIndex)
+    console.log(this.state.suggestions[sectionIndex])
+
+    this.props.getAddress(
+      suggestionValue,
+      this.state.suggestions[sectionIndex].title
+    )
+    // return suggestion.text
+  }
+
+  onKeyPress = async (str) => {
+    await this.props.getAddress(str)
+    
+
+  }
+
   render() {
     const { value, suggestions } = this.state
 
@@ -110,44 +137,32 @@ class SearchBar extends React.Component {
         <Autosuggest
           inputProps={{
             placeholder: "address...",
-            
+
             value: value,
             type: "text",
             name: "input",
             style: {
               background: "lightyellow",
             },
-            onClick: this.props.scrollToView,
+            onClick: () => this.props.scrollHeader(),
             onChange: (event, { newValue, method }) => {
-             
               this.setState({
                 value: newValue,
               })
-              
             },
             onKeyDown: (event) => {
-              console.log('here')
-            }
+
+              // console.log(event.keyCode)
+              event.target.value.length > 3 && event.keyCode === 13 &&
+              this.onKeyPress(event.target.value)
+
+            },
           }}
           multiSection={true}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          onSuggestionSelected={(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
-            console.log('event', event)
-            console.log('method', method)
-            console.log('suggestion', suggestion)
-            console.log('suggestionValue', suggestionValue)
-
-            console.log('suggestionIndex', suggestionIndex)
-            console.log('sectionIndex', sectionIndex)
-            console.log(this.state.suggestions[sectionIndex])
-
-
-           
-            this.props.getAddress(suggestionValue, this.state.suggestions[sectionIndex].title)
-            // return suggestion.text
-          }}
+          onSuggestionSelected={this.onSuggestionSelected}
           getSuggestionValue={(suggestion) => {
             // console.log(suggestion)
             return suggestion.text
@@ -156,11 +171,14 @@ class SearchBar extends React.Component {
             // console.log(suggestion)
             return <span>{suggestion.text}</span>
           }}
-          renderSectionTitle={(section) => { return section.title }}
-          getSectionSuggestions={(section) => { return section.suggestions }}
+          renderSectionTitle={(section) => {
+            return section.title
+          }}
+          getSectionSuggestions={(section) => {
+            return section.suggestions
+          }}
           focusInputOnSuggestionClick={this.state.isMobile}
           style={{ transform: "translate(50px)", background: "green" }}
-          
         />
       </form>
     )

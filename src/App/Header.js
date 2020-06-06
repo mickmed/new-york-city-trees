@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import ReactDOM from "react-dom"
 
 import "../Style/Header.scss"
 import SearchBar from "./SearchBar"
@@ -21,29 +20,34 @@ class header extends Component {
   //   })
   // }
 
-  componentWillUnmount() {
+  componentDidMount() {
     // window.removeEventListener("scroll", this.handleScroll)
   }
 
 
 
   scrollToView = () => {
-    // let headerHeight = this.refs.header.clientHeight
-    let imageHeight = this.refs.img.clientHeight
+    // console.log('here')
+    let headerHeight = this.refs.header.clientHeight
+    // let imageHeight = this.refs.img.clientHeight
     let bannerHeight = this.refs.banner.clientHeight
-    // window.scrollTo(0, (bannerHeight + 100))
+    // window.scrollTo(400, (headerHeight + 1000))
+    // console.log(bannerHeight)
 
+
+   
 
     let time = 2000
     let fadeOut = setInterval(() => {
       time -= 200
       this.refs.img.style.opacity = time / 2000
-      // console.log(time)
+     
 
       if (time === 0) {
         clearInterval(fadeOut)
-        // window.scrollTo(0, (bannerHeight + 100))
         this.refs.img.style.display = 'none'
+        this.refs.header.style.height= (bannerHeight + 20) + 'px'
+
 
 
       }
@@ -56,9 +60,11 @@ class header extends Component {
 
 
   render() {
+    const { searchString, searchType, getAddress } = this.props
     let style = this.state.imgFade ?
       { display: 'none' } : { display: 'block' }
-
+    // console.log(this.refs.img && this.refs.img)
+    this.props.scrollState && this.scrollToView()
     return (
       <>
         <header
@@ -78,7 +84,8 @@ class header extends Component {
               bannerHeight={this.state.bannerHeight}
               search={this.state.search}
               searchString={this.props.searchString}
-              scrollToView={this.scrollToView}
+              scrollHeader={this.props.scrollHeader}
+              scrollState={this.props.scrollState}
               trees={this.props.trees}
               getData={this.props.getData}
               getAddress={this.props.getAddress}
@@ -86,14 +93,15 @@ class header extends Component {
 
 
           </div>
-          <div className='nyc-logo'>
+          <div className='nyc-logo' ref="img">
             <img
-              ref="img"
+              
               src="images/nyc.png"
               alt="nyc trees"
               style={style}
             />
           </div>
+         
         </header>
 
       </>
