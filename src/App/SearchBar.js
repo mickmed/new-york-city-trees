@@ -89,12 +89,20 @@ class SearchBar extends Component {
     try {
       console.log(value.length)
       if(value.length > 2){
+      console.log('iiii')
       clearTimeout(ttr)
       let ttr = setTimeout(async() => {
+        console.log('seto')
+        let lonely = await this.fetchRequested(value)
+
         this.setState({
-        suggestions: await this.fetchRequested(value),
+        suggestions: lonely,
       })
+      
+
       }, 300)
+
+      
     }
     } catch (e) {
       this.setState({
@@ -104,8 +112,7 @@ class SearchBar extends Component {
   }
 
   onSuggestionsClearRequested = () => {
-    console.log('press')
-    console.log('hi thee')
+  console.log('jhasdf')
     this.setState({
       suggestions: [],
     })
@@ -132,6 +139,7 @@ class SearchBar extends Component {
   }
 
   onKeyPress = async(str) => {
+    this.onSuggestionsClearRequested()
     await this.props.getAddress(str, 'keyPress')
     this.onSuggestionsClearRequested()
 
@@ -143,7 +151,7 @@ class SearchBar extends Component {
 
   render() {
     const { value, suggestions } = this.state
-
+    console.log(suggestions)
     return (
       <form onSubmit={this.props.onsubmit}>
         <Autosuggest
