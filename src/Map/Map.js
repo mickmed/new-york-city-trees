@@ -207,12 +207,12 @@ class Map extends Component {
 
     return (
       <div className="map-wrapper" onClick={()=>this.props.scrollHeader()}>
-        {
+       
           <ion-icon
             onClick={()=>this.props.handleFilterClick()}
             name="funnel-outline"
           />
-        }
+        
         <ReactMapGL
           className="map"
           width={viewport.width}

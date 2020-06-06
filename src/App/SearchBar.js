@@ -45,6 +45,7 @@ class SearchBar extends Component {
 
   fetchRequested = async (value) => {
     console.log("value", value)
+
     let srch = value
     let trees =
       srch &&
@@ -52,7 +53,6 @@ class SearchBar extends Component {
       // srch.length % 2 !== 0 &&
       (await axios.get(getAddress(srch)))
     // console.log(trees)
-
     let suggestions = [
       { title: "address", suggestions: [] },
       { title: "zipcode", suggestions: [] },
@@ -74,7 +74,7 @@ class SearchBar extends Component {
         // console.log(value.toLowerCase())
       })
     })
-    console.log(suggestions)
+    // console.log(suggestions)
 
     return suggestions
   }
@@ -87,9 +87,15 @@ class SearchBar extends Component {
       return
     }
     try {
-      this.setState({
+      console.log(value.length)
+      if(value.length > 2){
+      clearTimeout(ttr)
+      let ttr = setTimeout(async() => {
+        this.setState({
         suggestions: await this.fetchRequested(value),
       })
+      }, 300)
+    }
     } catch (e) {
       this.setState({
         suggestions: [],
@@ -123,10 +129,8 @@ class SearchBar extends Component {
     // return suggestion.text
   }
 
-  onKeyPress = async (str) => {
-    await this.props.getAddress(str)
-    
-
+  onKeyPress = (str) => {
+    this.props.getAddress(str)
   }
 
   render() {
@@ -151,11 +155,10 @@ class SearchBar extends Component {
               })
             },
             onKeyDown: (event) => {
-
               // console.log(event.keyCode)
-              event.target.value.length > 3 && event.keyCode === 13 &&
-              this.onKeyPress(event.target.value)
-
+              event.target.value.length > 3 &&
+                event.keyCode === 13 &&
+                this.onKeyPress(event.target.value)
             },
           }}
           multiSection={true}

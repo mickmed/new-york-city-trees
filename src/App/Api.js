@@ -52,7 +52,7 @@ export const getAddress = (srch) => {
       str += `${e}%20like%20%27%25${address}%25%27` + orTail
     }
   })
-  console.log(cases, baseURL + str)
+  // console.log(cases, baseURL + str)
   return baseURL + str
 }
 

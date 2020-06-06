@@ -21,7 +21,7 @@ class App extends Component {
       input: "",
       searchString: "",
       showFilters: false,
-  scrollHeader:false
+      scrollHeader: false,
     }
   }
 
@@ -51,7 +51,6 @@ class App extends Component {
   speciesListClick = async (spc, srch) => {
     let trees = await axios.get(getBySpecies(spc, srch))
     console.log(trees)
-    
 
     this.setState({ trees: trees.data, showFilters: !this.state.showFilters })
   }
@@ -69,12 +68,11 @@ class App extends Component {
       showFilters: !this.state.showFilters,
     })
   }
-scrollHeader =()=>{
-  this.setState({
-    scrollHeader:true
-  })
-
-}
+  scrollHeader = () => {
+    this.setState({
+      scrollHeader: true,
+    })
+  }
 
   render() {
     const {
@@ -84,8 +82,7 @@ scrollHeader =()=>{
       speciesListClick,
       handleFilterClick,
       scrollToView,
-      scrollHeader
-     
+      scrollHeader,
     } = this
     const {
       trees,
@@ -113,10 +110,15 @@ scrollHeader =()=>{
 
         <main className="container">
           <div className="results-title">
-            {searchType !== undefined ? `${searchType}`: trees.length !== 0 ?'result' : ''}
+            {searchType !== undefined
+              ? `${searchType}`
+              : trees.length !== 0
+              ? "result"
+              : ""}
             <span
               onClick={() => getAddress(searchString, searchType)}
             >{` ${searchString}`}</span>
+            {trees.length !== 0 && <span style={{fontSize:'10px'}}>{` (${trees.length})`}</span>}
           </div>
           <Map
             treesData={trees}
@@ -132,7 +134,6 @@ scrollHeader =()=>{
             getAddress={getAddress}
             searchType={searchType}
           />
-          
         </main>
         <Footer />
       </div>
