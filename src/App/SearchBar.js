@@ -112,7 +112,7 @@ class SearchBar extends Component {
   }
 
   onSuggestionsClearRequested = () => {
-  console.log('jhasdf')
+  
     this.setState({
       suggestions: [],
     })
@@ -139,19 +139,30 @@ class SearchBar extends Component {
   }
 
   onKeyPress = async(str) => {
-    this.onSuggestionsClearRequested()
-    await this.props.getAddress(str, 'keyPress')
-    this.onSuggestionsClearRequested()
+  
+    this.setState({
+       
+      suggestions: [],
+    })
+   
 
-    // setTimeout(()=>{
-    //   this.onSuggestionsClearRequested()
+    setTimeout(async()=>{ 
+      this.setState({
+       
+        suggestions: [],
+      })
+      await this.props.getAddress(str, 'keyPress')
+      this.setState({
+       
+        suggestions: [],
+      })
 
-    // },300)
+    },500)
   }
 
   render() {
     const { value, suggestions } = this.state
-    console.log(suggestions)
+    // console.log(suggestions)
     return (
       <form onSubmit={this.props.onsubmit}>
         <Autosuggest

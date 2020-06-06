@@ -6,8 +6,6 @@ import TreeInfo from "../TreesList/TreeInfo.js"
 import "../Style/Map.scss"
 import TreesList from "../TreesList/TreesList"
 
-
-
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX
 
 const navStyle = {
@@ -62,7 +60,9 @@ class Map extends Component {
   }
   changeLongLat = (treesData, searchString) => {
     let index =
-      treesData.length > 99 && searchString === "00083" ? treesData.length - 100 : treesData.length - 1
+      treesData.length > 99 && searchString === "00083"
+        ? treesData.length - 100
+        : treesData.length - 1
     let len = treesData.length
     let zoom = len < 10 ? 17 : len < 100 ? 14 : 13
     let iconSize = len < 10 ? "20" : len < 100 ? "10" : "4"
@@ -73,7 +73,7 @@ class Map extends Component {
       background: `green`,
     }
     // console.log(treesData[0], index)
-    
+
     treesData[0] &&
       this.onViewportChange(
         {
@@ -126,7 +126,6 @@ class Map extends Component {
 
   _renderMarker = (tree, index) => {
     // let markers = ReactDOM.findDOMNode(this)
-
 
     return (
       <Marker
@@ -201,25 +200,30 @@ class Map extends Component {
   }
 
   render() {
-    const { viewport} = this.state
-    const { showFilters, searchString, handleClickSearch, speciesListClick, getAddress, searchType, scrollToView, keyPress } = this.props
+    const { viewport } = this.state
+    const {
+      showFilters,
+      searchString,
+      handleClickSearch,
+      speciesListClick,
+      getAddress,
+      searchType,
+      scrollToView,
+      keyPress,
+    } = this.props
     const trees = this.props.treesData && this.props.treesData
- let style=keyPress ? {display:'block'} : {display:'none'}
+    let style = keyPress ? { display: "block" } : { display: "none" }
     return (
-      <div className="map-wrapper" onClick={()=>this.props.scrollHeader()}>
-         
+      <div className="map-wrapper" onClick={() => this.props.scrollHeader()}>
+        <div className="tree-gif" style={style}>
+          <img src="./images/tree.gif" />
+        </div>
 
-          
-           <div className='tree-gif' style={style}>
-            <img src="./images/tree.gif" />
-          </div>
-         
-       
-          <ion-icon
-            onClick={()=>this.props.handleFilterClick()}
-            name="funnel-outline"
-          />
-        
+        <ion-icon
+          onClick={() => this.props.handleFilterClick()}
+          name="funnel-outline"
+        />
+
         <ReactMapGL
           className="map"
           width={viewport.width}
@@ -241,18 +245,17 @@ class Map extends Component {
           </div>
         </ReactMapGL>
         {showFilters && (
-            <TreesList
-              treesData={trees}
-             
-              searchString={searchString}
-              handleClickSearch={handleClickSearch}
-              speciesListClick={speciesListClick}
-              getAddress={getAddress}
-              searchType={searchType}
-              showFilters={showFilters}
-              scrollToView={scrollToView}
-            />
-          )}
+          <TreesList
+            treesData={trees}
+            searchString={searchString}
+            handleClickSearch={handleClickSearch}
+            speciesListClick={speciesListClick}
+            getAddress={getAddress}
+            searchType={searchType}
+            showFilters={showFilters}
+            scrollToView={scrollToView}
+          />
+        )}
       </div>
     )
   }
