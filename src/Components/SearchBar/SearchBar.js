@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import Autosuggest from "react-autosuggest"
-import "../Style/SearchBar.scss"
-import { getAddress } from "./Api"
+import "./SearchBar.scss"
+import { getAddress } from "../Api/Api.js"
 import axios from "axios"
 
 // function renderSectionTitle(section) {
@@ -175,7 +175,7 @@ class SearchBar extends Component {
             style: {
               background: "lightyellow",
             },
-            onClick: () => this.props.scrollHeader(),
+            onClick: () => this.props.handleScroll(),
             onChange: (event, { newValue, method }) => {
               this.setState({
                 value: newValue,

@@ -1,6 +1,6 @@
 import React from "react"
 
-import "../Style/Header.scss"
+import "../Header/Header.scss"
 
 // import axios from "axios";
 

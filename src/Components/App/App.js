@@ -1,35 +1,32 @@
 import React, { Component } from "react"
-import "../Style/App.scss"
 import axios from "axios"
-import Map from "../Map/Map.js"
-import Header from "./Header"
-import Footer from "./Footer"
 
-import { getManhattan, getAddress, getBySpecies } from "./Api"
+import Header from "../Header/Header.js"
+import Map from "../Map/Map.js"
+import Footer from "../Footer/Footer.js"
+import "./App.scss"
+
+import { getManhattan, getAddress, getBySpecies } from "../Api/Api.js"
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       trees: [],
-      boroname: "&boroname=Manhattan",
-      zipcode: "&zipcode=10001",
-      spc_common: "",
-      status: "&status=Alive",
-      health: "",
+    
       fixHeader: false,
       input: "",
       searchString: "",
       showFilters: false,
       scrollHeader: false,
-      keyPress: false
+      keyPress: false,
+      refreshd:false
     }
   }
 
   async componentDidMount() {
     await this.getAddress("00083", "zipcode")
   }
-
   onSubmit = (evt) => {
     evt.preventDefault()
   }
@@ -45,57 +42,54 @@ class App extends Component {
   }
   getAddress = async (srch, type) => {
     console.log(type)
-
     if(type === 'keyPress'){
       this.setState({
-        // trees:[]
         keyPress:true
       })
-      
     }
     let trees = await axios.get(getAddress(srch))
     this.setState({ trees: trees.data, searchString: srch, searchType: type, keyPress:false })
   }
-
-  getX = async (srch, type) => {
-
-  }
-
   speciesListClick = async (spc, srch) => {
     let trees = await axios.get(getBySpecies(spc, srch))
     console.log(trees)
-
     this.setState({ trees: trees.data, showFilters: !this.state.showFilters })
   }
-
   handleClickSearch = (clickedValue) => {
     this.setState({
       searchString: clickedValue,
     })
     this.getAddress(clickedValue)
   }
-
   handleFilterClick = () => {
     // e.stopPropagation()
     this.setState({
       showFilters: !this.state.showFilters,
     })
   }
-  scrollHeader = () => {
+  handleScroll = () => {
     this.setState({
       scrollHeader: true,
     })
   }
+  refresh = () => {
+    console.log('here')
+    this.setState({ 
+      refreshd:!this.state.refreshd,
+      scrollHeader:false
 
+    })
+  }
   render() {
+    console.log('reneder')
     const {
-      onSubmit,
-      getAddress,
-      handleClickSearch,
-      speciesListClick,
-      handleFilterClick,
-      scrollToView,
-      scrollHeader,
+      // onSubmit,
+      // getAddress,
+      // handleClickSearch,
+      // speciesListClick,
+      // handleFilterClick,
+      handleScroll,
+      refresh
     } = this
     const {
       trees,
@@ -103,26 +97,26 @@ class App extends Component {
       fixHeader,
       searchType,
       showFilters,
-      keyPress
+      keyPress,
+      scrollHeader
     } = this.state
     // console.log(searchString)
     return (
-      <div className="App">
+      <div className="App" style={{background:'red', height:'100vh'}}>
         <Header
-          onsubmit={onSubmit}
-          fixHeader={fixHeader}
-          searchString={searchString}
-          trees={trees}
-          getAddress={getAddress}
-          scrollToView={scrollToView}
-          ref="header"
+          // onsubmit={onSubmit}
+          // fixHeader={fixHeader}
+          // searchString={searchString}
+          // trees={trees}
+          // getAddress={getAddress}
+          // ref="header"
+          handleScroll={handleScroll}
           scrollHeader={scrollHeader}
-          scrollState={this.state.scrollHeader}
-          searchString={searchString}
-          searchType={searchType}
+          refresh={refresh}
+          // searchString={searchString}
+          // searchType={searchType}
         />
-
-        <main className="container">
+         <main className="container">
           <div className="results-title">
             {searchType !== undefined && searchType !== 'keyPress'
               ? `${searchType}`
@@ -134,7 +128,7 @@ class App extends Component {
             >{` ${searchString}`}</span>
             {trees.length !== 0 && <span style={{fontSize:'12px'}}>{` (${trees.length})`}</span>}
           </div>
-          <Map
+          {/* <Map
             treesData={trees}
             searchString={searchString}
             handleFilterClick={handleFilterClick}
@@ -148,9 +142,9 @@ class App extends Component {
             getAddress={getAddress}
             searchType={searchType}
             keyPress={keyPress}
-          />
+          /> */}
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     )
   }

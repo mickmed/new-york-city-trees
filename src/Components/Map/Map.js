@@ -3,7 +3,7 @@ import ReactMapGL, { Marker, NavigationControl, Popup } from "react-map-gl"
 // import TreePin from "./tree-pin.js";
 import TreeInfo from "../TreesList/TreeInfo.js"
 // import ControlPanel from "./control-panel.js";
-import "../Style/Map.scss"
+import "./Map.scss"
 import TreesList from "../TreesList/TreesList"
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX
@@ -44,9 +44,13 @@ class Map extends Component {
   }
   componentDidMount() {
     this.resizeMap()
+    window.addEventListener('resize', ()=> this.resizeMap())
+    this.resizeMap()
   }
   resizeMap = () => {
     const mapDims = document.querySelector(".map-wrapper")
+    console.log('mapDims', mapDims.offsetHeight,mapDims.offsetWidth)
+
     this.onViewportChange({
       width: mapDims.offsetWidth,
       height: mapDims.offsetHeight,

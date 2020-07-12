@@ -1,5 +1,5 @@
 import React from "react"
-import "../Style/Treelist.scss"
+import "./Treelist.scss"
 
 class TreesList extends React.Component {
   constructor() {

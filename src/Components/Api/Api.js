@@ -1,4 +1,4 @@
-import capitalize from "./Shared"
+import capitalize from "../Helpers/Shared"
 // import data from '../ManhattanData.js'
 
 const TOKEN = process.env.REACT_APP_TOKEN
