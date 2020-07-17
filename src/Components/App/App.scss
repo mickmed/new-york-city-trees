@@ -8,32 +8,30 @@ html {
     .App {
       // width: 100%;
       // background:black;
+      // background:lightgrey;
+      height:100vh;
       .container {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        height: 90vh;
+        height: 80vh;
         padding: 0 1%;
         font-size: 0.75em;
         font-family: "Roboto", sans-serif;
         position: relative;
+        background:rgb(255, 255, 255);
+        margin-top:3%;
         .results-title {
           padding: 0 3% 2%;;
           font-size: 1.5em;
-          margin-left: 2%;
+          margin:5% 0 3% 0;
           span {
             color: blue;
           }
         }
       }
     }
-    .footer {
-      background-image: linear-gradient(white, white, lightgray);
-      display: flex;
-      justify-content: center;
-      font-family: Roboto;
-      height: 20vh;
-    }
+
   }
   @media only screen and (min-width: 600px) {
     body {
@@ -41,6 +39,7 @@ html {
         .container {
           .results-title {
             font-size: 2em;
+            margin-top:0;
           }
         }
       }

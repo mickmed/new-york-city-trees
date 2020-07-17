@@ -49,7 +49,7 @@ class Map extends Component {
   }
   resizeMap = () => {
     const mapDims = document.querySelector(".map-wrapper")
-    console.log('mapDims', mapDims.offsetHeight,mapDims.offsetWidth)
+    // console.log('mapDims', mapDims.offsetHeight,mapDims.offsetWidth)
 
     this.onViewportChange({
       width: mapDims.offsetWidth,

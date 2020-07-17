@@ -1,6 +1,7 @@
 import React from "react"
 
 import "../Header/Header.scss"
+import './footer.scss'
 
 // import axios from "axios";
 

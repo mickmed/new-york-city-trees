@@ -1,70 +1,109 @@
 .header {
-    width: 100%;
-    margin:0 auto;
-    max-width:1200px;
-    display: flex;
-    // justify-content: center;
-    flex-direction:column;
-    // min-height: 20%;
-    // position:fixed;
-    background:black;
-    .banner {
-        
-        max-width:1200px;
-
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        // justify-content: center;
-        margin: 0 auto;
-        position: fixed;
-        // padding: 2em;
-        z-index: 4;
-        background:white;
-        
-
-        h2 {
-            text-align: center;
-            margin: 2% 0 2% 0;
-        }
-        form {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	background: rgb(233, 171, 57);
+	width: 100%;
+    max-width: 1200px;
+   
+	// height: 20%;
+	justify-content: space-between;
+	// margin: 2%;
+	// min-height: 20%;
+	// position: fixed;
+	// background: black;
+	.banner {
+		display: flex;
+		position: fixed;
+		flex-direction: column;
+		align-items: center;
+		z-index: 4;
+		margin: 0 auto;
+		border-bottom: 1px solid black;
+		background: white;
+		width: 100%;
+		max-width: 1200px;
+		height: 55px;
+		// justify-content: center;
+		.header-link {
+			text-decoration: none;
+			h2 {
+				margin: 2% 0 2% 0;
+				text-align: center;
+				color: black;
+				font-family: Raleway;
+			}
+		}
+		form {
+			display: flex;
+			justify-content: center;
             width: 80%;
-            display: flex;
-            justify-content: center;
-        }
-    }
-    .nyc-logo {
-        display:flex;
-        justify-content: space-around;
-        margin-top:25%;
-        
-        img {
-            width: 75%;
-
-            // margin: 25% 0;
-        }
-    }
-
-    @media only screen and (min-width: 600px) {
-        .banner{
-            flex-direction:row;
-            justify-content:space-around;
-            h2{
-                transform:translateY(10%);
-                font-size:2em;
+            input{
+                // border:1px solid black;
             }
-            form{
-                width:50%;
-            }
-        }
-        .nyc-logo {
+		}
+	}
+	.nyc-logo {
+		display: flex;
+        justify-content: center;
+        align-items:flex-end;
+        margin-top: 85px;
+        margin-bottom:1%;
+        border: 2px;
+        height:20%;
+        // transform: translateY(100%);
+		img {
+			// margin: 2% 0 3%;
+			width: 70%;
+			// height: 50px;
+			// margin: 25% 0;
+		}
+	}
+}
+@media only screen and (min-width: 600px) {
+	.header {
+		// height: 22%;
+		.banner {
+			flex-direction: row;
+			justify-content: space-around;
+			.header-link {
+				h2 {
+					transform: translateY(10%);
+					font-size: 3vw;
+				}
+			}
+			form {
+				width: 55%;
+			}
+		}
+		.nyc-logo {
+            // margin-top: 10%;
+        // transform: translateY(140%);
             
-            margin-top:10%;
-            img{
-                width:50%;
-            }
-           
-        }
-    }
+			img {
+				margin-top: 0;
+				width: 60%;
+			}
+		}
+	}
+}
+@media only screen and (min-width: 900px) {
+	.header {
+		.banner {
+			.header-link {
+				h2 {
+				}
+				form {
+					width: 45%;
+				}
+			}
+		}
+		.nyc-logo {
+			// margin-top: 10%;
+			img {
+				margin-top: 0;
+				width: 50%;
+			}
+		}
+	}
 }
