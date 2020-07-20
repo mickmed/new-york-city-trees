@@ -8,6 +8,27 @@ const capitalize = s => {
 
 
 
+  export const countSpecies = (treesData) =>{
+    const spcCount = treesData.reduce(
+      (acc, { spc_common: curr }) => {
+        return (acc[curr] = acc[curr] + 1 || 1) && acc
+      },
+      {}
+    )
+    console.log(spcCount)
+    let sorted = []
+    for (let spc in spcCount) {
+      sorted.push([capitalize(spc), spcCount[spc]])
+    }
+    sorted.sort(function(a, b) {
+      return a[1] - b[1]
+    })
+    return sorted.reverse()
+
+  }
+
+
+
 
 
 

@@ -2,7 +2,7 @@
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
-	background: rgb(233, 171, 57);
+	background: rgb(238, 228, 209);
 	width: 100%;
     max-width: 1200px;
    
@@ -89,17 +89,21 @@
 }
 @media only screen and (min-width: 900px) {
 	.header {
+		background:white;
 		.banner {
+			padding:1vh 0;
 			.header-link {
 				h2 {
+					font-size:30px;
 				}
 				form {
-					width: 45%;
+					width: 35%;
 				}
 			}
 		}
 		.nyc-logo {
 			// margin-top: 10%;
+			// background:white;
 			img {
 				margin-top: 0;
 				width: 50%;

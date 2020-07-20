@@ -1,68 +1,65 @@
 .map-wrapper {
-  width: 90%;
-  margin: 0 auto;
-  height: 85%;
-  position: relative;
-  /* margin-top:40%; */
-  .tree-gif{
-    height:70%;
-      width:70%;
-      position:absolute;
-      margin:0 auto;
-      left:20%;
-      z-index:5;
-    img{
-      // height:100%;
-      // width:100%;
-    }
-    
-  }
-  ion-icon {
-    position: absolute;
-    left: 2%;
-    top: 1%;
-    font-size: 2.5em;
-    background-color: rgba(rgb(42, 112, 136), 0.9);
-    color: white;
-    z-index: 3;
-    // border:1px solid red;
-    
-  }
-  .nav {
-    position: absolute;
-    top: 8px;
-    right: 4px;
-
-    div {
-      position: absolute;
-      top: 8px;
-      right: 4px;
-    }
-  }
-
-  .popup {
-    background-color: lightyellow;
-    padding: 5px;
-    color: blue;
-    font-size: 1em;
-    /* width:300px;
-    height:300px; */
+	position: relative;
+	margin: 0 auto;
+	width: 90%;
+	height: 70%;
+	.tree-gif {
+		position: absolute;
+		left: 20%;
+		z-index: 5;
+		margin: 0 auto;
+		width: 70%;
+		height: 70%;
+		img {
+			// height: 100%;
+			// width: 100%;
+		}
+	}
+	.icons {
+		display: flex;
+		position: absolute;
+		top: 1%;
+		left: 1%;
+		flex-direction: column;
+		z-index: 5;
+		border-radius: 50px;
+		box-shadow: 1px 1px 7px grey;
+		ion-icon {
+			z-index: 3;
+			background-color: rgb(238, 228, 209);
+			padding: 20% 0;
+			color: rgb(211, 29, 29);
+			font-size: 2.5em;
+			// border: 1px solid red;
+		}
+	}
+	.nav {
+		position: absolute;
+		top: 8px;
+		right: 4px;
+		div {
+			position: absolute;
+			top: 8px;
+			right: 4px;
+		}
+	}
+	.popup {
+		background-color: lightyellow;
+		padding: 5px;
+		color: blue;
+		font-size: 1em;
+		/* width: 300px;
+		*/
     z-index: 5;
-  }
-
-  .treepin {
-    background: green;
-
-    border-radius: 50%;
-  }
-
-  @media only screen and (min-width: 600px) {
-    
-    
-        ion-icon {
-          font-size:4em;
-          left:1%;
-        }
-      }
-   
-  }
+	}
+	.treepin {
+		border-radius: 50%;
+		background: green;
+	}
+	@media only screen and (min-width: 600px) {
+		ion-icon {
+			left: 1%;
+			font-size: 4em;
+		}
+	}
+}

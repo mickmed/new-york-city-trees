@@ -10,33 +10,17 @@ class header extends Component {
     imgFade: false,
     scroll: false,
   }
-componentDidMount(){
-  console.log(this.refs.header.clientHeight)
-}
-  scrollToView = async (orig) => {
-    let headerHeight = this.refs.header.clientHeight
-    let bannerHeight = this.refs.banner.clientHeight
-    let imgHeight = this.refs.img.clientHeight
-    console.log(headerHeight / 10)
-
-    console.log(imgHeight, headerHeight, bannerHeight, window.pageYOffset)
-
-    let time = 200
-    let fadeOut = await setInterval(() => {
-      time -= 20
-      // this.refs.img.style.opacity = time / 200
-      if (time === 0) {
-        clearInterval(fadeOut)
-        orig === "header"
-          ? window.pageYOffset !== 0 && window.scrollTo(0, 0)
-          : window.pageYOffset === 0 && window.scrollTo(0, headerHeight-bannerHeight)
-      }
-    }, 20)
+  componentDidMount() {
+    // console.log(this.refs.header.clientHeight)
   }
+
   componentDidUpdate(prevProps, prevState) {
-    console.log(prevProps, prevState, this.props)
+    //   // console.log(prevProps, prevState, this.props)
     if (prevProps.scrollHeader !== this.props.scrollHeader) {
-      this.scrollToView()
+      this.props.scrollToView(
+        this.refs.header.clientHeight,
+        this.refs.banner.clientHeight
+      )
     }
   }
 
@@ -44,7 +28,7 @@ componentDidMount(){
     const { searchString, searchType, getAddress, handleScroll } = this.props
     let style = this.state.imgFade ? { display: "none" } : { display: "block" }
 
-    console.log(this.refs.header)
+    // console.log(this.refs.header)
     return (
       <>
         <header
@@ -53,7 +37,17 @@ componentDidMount(){
           ref="header"
         >
           <div className="banner" ref="banner">
-            <Link to="/" onClick={() => this.scrollToView("header")} className='header-link'>
+            <Link
+              to="/"
+              onClick={() =>
+                this.props.scrollToView(
+                  this.refs.header.clientHeight,
+                  this.refs.banner.clientHeight,
+                  "header"
+                )
+              }
+              className="header-link"
+            >
               <h2>NEW YORK CITY TREES</h2>
             </Link>
             <SearchBar
@@ -70,7 +64,7 @@ componentDidMount(){
               // scrollState={this.props.scrollState}
               // trees={this.props.trees}
               // getData={this.props.getData}
-              // g height:25%;etAddress={this.props.getAddress}
+              getAddress={this.props.getAddress}
             />
           </div>
           <div className="nyc-logo" ref="img">

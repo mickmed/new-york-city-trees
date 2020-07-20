@@ -89,10 +89,10 @@ class SearchBar extends Component {
     try {
       console.log(value.length)
       if(value.length > 2){
-      console.log('iiii')
+     
       clearTimeout(ttr)
       let ttr = setTimeout(async() => {
-        console.log('seto')
+       
         let lonely = await this.fetchRequested(value)
 
         this.setState({
@@ -138,24 +138,20 @@ class SearchBar extends Component {
     // return suggestion.text
   }
 
-  onKeyPress = async(str) => {
-  
-    this.setState({
-       
-      suggestions: [],
-    })
+  onKeyPress = async(event, str) => {
+    event.preventDefault()
    
 
     setTimeout(async()=>{ 
-      this.setState({
+      // this.setState({
        
-        suggestions: [],
-      })
+      //   suggestions: [],
+      // })
       await this.props.getAddress(str, 'keyPress')
-      this.setState({
+      // this.setState({
        
-        suggestions: [],
-      })
+      //   suggestions: [],
+      // })
 
     },500)
   }
@@ -183,9 +179,10 @@ class SearchBar extends Component {
             },
             onKeyDown: (event) => {
               // console.log(event.keyCode)
+              
               event.target.value.length > 3 &&
                 event.keyCode === 13 &&
-                this.onKeyPress(event.target.value)
+                this.onKeyPress(event, event.target.value)
             },
           }}
           multiSection={true}

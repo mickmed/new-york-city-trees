@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@amcharts/amcharts4": "^4.9.30",
     "axios": "^0.18.0",
     "bulma": "^0.7.2",
     "dotenv": "^6.2.0",

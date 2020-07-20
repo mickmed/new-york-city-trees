@@ -1,7 +1,6 @@
 html {
   // scroll-behavior: smooth;
-    
-   
+
   body {
     margin: 0;
     padding: 0;
@@ -9,37 +8,48 @@ html {
       // width: 100%;
       // background:black;
       // background:lightgrey;
-      height:100vh;
+      height: 100vh;
       .container {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        height: 80vh;
+        height: 100vh;
         padding: 0 1%;
         font-size: 0.75em;
         font-family: "Roboto", sans-serif;
         position: relative;
-        background:rgb(255, 255, 255);
-        margin-top:3%;
+        background: rgb(255, 255, 255);
+        margin-top: 3%;
         .results-title {
-          padding: 0 3% 2%;;
+          padding: 0 3% 2%;
           font-size: 1.5em;
-          margin:5% 0 3% 0;
+          margin: 5% 0 3% 0;
           span {
             color: blue;
           }
         }
       }
     }
-
   }
   @media only screen and (min-width: 600px) {
     body {
       .App {
         .container {
           .results-title {
+            font-size: 1.5em;
+            margin:0;
+          }
+        }
+      }
+    }
+  }
+  @media only screen and (min-width: 900px) {
+    body {
+      .App {
+        .container {
+          .results-title {
             font-size: 2em;
-            margin-top:0;
+            margin:0;
           }
         }
       }

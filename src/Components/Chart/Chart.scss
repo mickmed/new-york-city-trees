@@ -1,0 +1,12 @@
+.chart-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 5% 5%;
+    height:200px;
+    #chartdiv {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        height: 70%;
+    }
+}

@@ -3,8 +3,10 @@ import axios from "axios"
 
 import Header from "../Header/Header.js"
 import Map from "../Map/Map.js"
+import Chart from '../Chart/Chart.js'
 import Footer from "../Footer/Footer.js"
 import "./App.scss"
+import { countSpecies } from '../Helpers/Shared.js'
 
 import { getManhattan, getAddress, getBySpecies } from "../Api/Api.js"
 
@@ -42,13 +44,14 @@ class App extends Component {
   //   })
   // }
   getAddress = async (srch, type) => {
-    console.log(type)
+    console.log(type, "here", srch)
     if (type === "keyPress") {
       this.setState({
         keyPress: true,
       })
     }
     let trees = await axios.get(getAddress(srch))
+    console.log(trees)
     this.setState({
       trees: trees.data,
       searchString: srch,
@@ -56,38 +59,60 @@ class App extends Component {
       keyPress: false,
     })
   }
-  // speciesListClick = async (spc, srch) => {
-  //   let trees = await axios.get(getBySpecies(spc, srch))
-  //   console.log(trees)
-  //   this.setState({ trees: trees.data, showFilters: !this.state.showFilters })
-  // }
-  // handleClickSearch = (clickedValue) => {
-  //   this.setState({
-  //     searchString: clickedValue,
-  //   })
-  //   this.getAddress(clickedValue)
-  // }
-  // handleFilterClick = () => {
-  //   // e.stopPropagation()
-  //   this.setState({
-  //     showFilters: !this.state.showFilters,
-  //   })
-  // }
+  speciesListClick = async (spc, srch) => {
+    console.log('srch', srch)
+    let trees = await axios.get(getBySpecies(spc, srch))
+    console.log(trees)
+    this.setState({ trees: trees.data, showFilters: !this.state.showFilters })
+  }
+
+  handleClickSearch = (clickedValue) => {
+    this.setState({
+      searchString: clickedValue,
+    })
+    this.getAddress(clickedValue)
+  }
+
+  handleFilterClick = () => {
+    // e.stopPropagation()
+    this.setState({
+      showFilters: !this.state.showFilters,
+    })
+  }
   handleScroll = () => {
     this.setState({
       scrollHeader: !this.state.scrollHeader,
     })
   }
 
+  scrollToView = async (headerHeight, bannerHeight, orig) => {
+    // console.log(headerHeight / 10)
+
+    // console.log(imgHeight, headerHeight, bannerHeight, window.pageYOffset)
+
+    let time = 200
+    let fadeOut = await setInterval(() => {
+      time -= 20
+      // this.refs.img.style.opacity = time / 200
+      if (time === 0) {
+        clearInterval(fadeOut)
+        orig === "header"
+          ? window.pageYOffset !== 0 && window.scrollTo(0, 0)
+          : window.pageYOffset < headerHeight - bannerHeight &&
+            window.scrollTo(0, headerHeight - bannerHeight)
+      }
+    }, 20)
+  }
+
   render() {
-    console.log("reneder")
     const {
       // onSubmit,
-      // getAddress,
-      // handleClickSearch,
-      // speciesListClick,
-      // handleFilterClick,
+      getAddress,
       handleScroll,
+      scrollToView,
+      // handleClickSearch,
+      speciesListClick,
+      handleFilterClick,
     } = this
     const {
       trees,
@@ -99,9 +124,11 @@ class App extends Component {
       scrollHeader,
     } = this.state
     // console.log(searchString)
+    let speciesCount = countSpecies(trees)
+
     return (
-      <div 
-        className="App" 
+      <div
+        className="App"
         // style={{ height: "100vh" }}
       >
         <Header
@@ -109,11 +136,11 @@ class App extends Component {
           // fixHeader={fixHeader}
           // searchString={searchString}
           // trees={trees}
-          // getAddress={getAddress}
+          getAddress={getAddress}
           // ref="header"
           handleScroll={handleScroll}
+          scrollToView={scrollToView}
           scrollHeader={scrollHeader}
-
           // searchString={searchString}
           // searchType={searchType}
         />
@@ -134,23 +161,26 @@ class App extends Component {
             </div>
             <Map
               treesData={trees}
-              // searchString={searchString}
-              // handleFilterClick={handleFilterClick}
-              // showFilters={showFilters}
+              handleScroll={handleScroll}
+              searchString={searchString}
+              handleFilterClick={handleFilterClick}
+              showFilters={showFilters}
               // scrollToView={scrollToView}
               // switch={this.state.switch}
               // scrollHeader={this.scrollHeader}
-              // showFilters={showFilters}
+              
               // handleClickSearch={handleClickSearch}
-              // speciesListClick={speciesListClick}
+              speciesListClick={speciesListClick}
               // getAddress={getAddress}
               // searchType={searchType}
               // keyPress={keyPress}
             />
+            <Chart speciesCount={speciesCount}/>
+          
           </main>
         </Route>
         <Route path="/about">
-          <div>site built by Mick</div>
+          <div>site built by Mick Roth</div>
         </Route>
         <Footer />
       </div>
