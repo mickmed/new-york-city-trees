@@ -1,12 +1,17 @@
 .chart-wrapper {
+    position:absolute;
+    bottom:0;
+    left:0;
     display: flex;
     justify-content: center;
-    margin: 5% 5%;
-    height:200px;
+    align-items:center;
+    // margin: 5% 5%;
+    height:100%;
+    width:100%;
     #chartdiv {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        height: 70%;
+        
+        height:100%;
+        width:100%;
+       
     }
 }

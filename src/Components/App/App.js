@@ -3,10 +3,10 @@ import axios from "axios"
 
 import Header from "../Header/Header.js"
 import Map from "../Map/Map.js"
-import Chart from '../Chart/Chart.js'
+import Chart from "../Chart/Chart.js"
 import Footer from "../Footer/Footer.js"
 import "./App.scss"
-import { countSpecies } from '../Helpers/Shared.js'
+import { countSpecies } from "../Helpers/Shared.js"
 
 import { getManhattan, getAddress, getBySpecies } from "../Api/Api.js"
 
@@ -21,7 +21,9 @@ class App extends Component {
       fixHeader: false,
       input: "",
       searchString: "",
+     
       showFilters: false,
+      showPie: false,
       scrollHeader: false,
       keyPress: false,
     }
@@ -60,10 +62,16 @@ class App extends Component {
     })
   }
   speciesListClick = async (spc, srch) => {
-    console.log('srch', srch)
+    console.log("srch", srch)
     let trees = await axios.get(getBySpecies(spc, srch))
     console.log(trees)
-    this.setState({ trees: trees.data, showFilters: !this.state.showFilters })
+    this.setState({
+      trees: trees.data,
+      showFilters: !this.state.showFilters,
+      
+      showPie: false,
+    
+    })
   }
 
   handleClickSearch = (clickedValue) => {
@@ -77,6 +85,15 @@ class App extends Component {
     // e.stopPropagation()
     this.setState({
       showFilters: !this.state.showFilters,
+      showPie: false,
+     
+    })
+  }
+  handlePieClick = () => {
+    this.setState({
+      showFilters: false,
+      showPie: !this.state.showPie,
+      
     })
   }
   handleScroll = () => {
@@ -98,7 +115,7 @@ class App extends Component {
         clearInterval(fadeOut)
         orig === "header"
           ? window.pageYOffset !== 0 && window.scrollTo(0, 0)
-          : window.pageYOffset < headerHeight - bannerHeight &&
+          : window.pageYOffset !== headerHeight - bannerHeight &&
             window.scrollTo(0, headerHeight - bannerHeight)
       }
     }, 20)
@@ -113,13 +130,16 @@ class App extends Component {
       // handleClickSearch,
       speciesListClick,
       handleFilterClick,
+      handlePieClick,
     } = this
     const {
       trees,
       searchString,
       fixHeader,
       searchType,
+     
       showFilters,
+      showPie,
       keyPress,
       scrollHeader,
     } = this.state
@@ -164,19 +184,20 @@ class App extends Component {
               handleScroll={handleScroll}
               searchString={searchString}
               handleFilterClick={handleFilterClick}
+              handlePieClick={handlePieClick}
+              
               showFilters={showFilters}
+              showPie={showPie}
               // scrollToView={scrollToView}
               // switch={this.state.switch}
               // scrollHeader={this.scrollHeader}
-              
+
               // handleClickSearch={handleClickSearch}
               speciesListClick={speciesListClick}
               // getAddress={getAddress}
               // searchType={searchType}
               // keyPress={keyPress}
             />
-            <Chart speciesCount={speciesCount}/>
-          
           </main>
         </Route>
         <Route path="/about">

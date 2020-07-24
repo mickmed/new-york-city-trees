@@ -8,12 +8,14 @@ html {
       // width: 100%;
       // background:black;
       // background:lightgrey;
-      height: 100vh;
+      height: 80vh;
+      max-width:1200px;
+      margin:0 auto;
       .container {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        height: 100vh;
+        height: 95vh;
         padding: 0 1%;
         font-size: 0.75em;
         font-family: "Roboto", sans-serif;
@@ -21,7 +23,7 @@ html {
         background: rgb(255, 255, 255);
         margin-top: 3%;
         .results-title {
-          padding: 0 3% 2%;
+          padding: 0 5% 2%;
           font-size: 1.5em;
           margin: 5% 0 3% 0;
           span {

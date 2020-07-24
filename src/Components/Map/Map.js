@@ -1,5 +1,10 @@
 import React, { Component } from "react"
-import ReactMapGL, { Marker, NavigationControl, Popup } from "react-map-gl"
+import ReactMapGL, {
+  Marker,
+  NavigationControl,
+  Popup,
+  FlyToInterpolator,
+} from "react-map-gl"
 // import TreePin from "./tree-pin.js";
 import TreeInfo from "../TreesList/TreeInfo.js"
 // import ControlPanel from "./control-panel.js";
@@ -19,6 +24,7 @@ class Map extends Component {
     super(props)
     this.state = {
       showFilters: false,
+      isMobile: false,
       // trees: [],
       // boroname: "&boroname=Manhattan",
       // zipcode: "",
@@ -51,6 +57,10 @@ class Map extends Component {
       width: mapDims.offsetWidth,
       height: mapDims.offsetHeight,
     })
+    console.log(mapDims.offsetWidth)
+    this.setState({
+      isMobile: mapDims.offsetWidth <= 760,
+    })
   }
   componentDidUpdate(prevProps, prevState) {
     let { treesData, searchString } = this.props
@@ -79,6 +89,8 @@ class Map extends Component {
           longitude: parseFloat(treesData[index].longitude),
           latitude: parseFloat(treesData[index].latitude),
           zoom: zoom,
+          transitionInterpolater: new FlyToInterpolator({ speed: 20 }),
+          transitionDuration: 'auto'
         },
         style
       )
@@ -186,20 +198,25 @@ class Map extends Component {
     )
   }
   render() {
-    const { viewport } = this.state
+    const { viewport, isMobile } = this.state
     const {
       showFilters,
+      handleFilterClick,
+      showPie,
+      handlePieClick,
       searchString,
       handleClickSearch,
       speciesListClick,
       getAddress,
       searchType,
+
       scrollHeader,
       handleScroll,
       keyPress,
     } = this.props
     const trees = this.props.treesData && this.props.treesData
     let speciesCount = countSpecies(trees)
+    console.log(speciesCount)
     let style = keyPress ? { display: "block" } : { display: "none" }
 
     return (
@@ -208,14 +225,8 @@ class Map extends Component {
           <img src="./images/tree.gif" />
         </div>
         <div className="icons">
-          <ion-icon
-            onClick={() => this.props.handleFilterClick()}
-            name="funnel-outline"
-          />
-          <ion-icon
-            onClick={() => this.props.handlePieChart()}
-            name="pie-chart-outline"
-          />
+          <ion-icon onClick={() => handleFilterClick()} name="funnel-outline" />
+          <ion-icon onClick={() => handlePieClick()} name="pie-chart-outline" />
         </div>
         <ReactMapGL
           className="map"
@@ -249,6 +260,7 @@ class Map extends Component {
             // scrollToView={scrollToView}
           />
         )}
+        {showPie && <Chart speciesCount={speciesCount} isMobile={isMobile} />}
       </div>
     )
   }
