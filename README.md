@@ -8,9 +8,6 @@
 This is a create-react-app project using NYC Open Data to Map the trees of New York City. Users can search by address, neighborhood, and zipcode. Results are categorized by species and displayed on the map.
 
 
-
-
-
 ### Technologies
 - React
 - Sass
@@ -26,11 +23,9 @@ This is a create-react-app project using NYC Open Data to Map the trees of New Y
  ![](./public/images/Flowchart.png)
 
 
-
-
-
-
 ### Deployed
+[Current Site](https://psychedelic-plantation.surge.sh)
+
 [1.0.0](http://nyc-trees.surge.sh/)
 
 
