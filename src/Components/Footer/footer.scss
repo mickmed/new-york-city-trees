@@ -1,8 +1,14 @@
 .footer {
-    background-image: linear-gradient(white, #eee4d1, #eee4d1);
-    display: flex;
-    justify-content: center;
-    align-content: flex-end;
-    font-family: Roboto;
-    // height: 10vh;
+  background-image: linear-gradient(white, #eee4d1, #eee4d1);
+  display: flex;
+  justify-content: center;
+  align-content: flex-end;
+  font-family: Roboto;
+  // height: 10vh;
+  div {
+    margin:5%;
+    a {
+      // margin: 5%;
+    }
   }
+}
