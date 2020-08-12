@@ -1,4 +1,4 @@
-import capitalize from "../Helpers/Shared"
+import { capitalize } from "../Helpers/Shared"
 // import data from '../ManhattanData.js'
 
 const TOKEN = process.env.REACT_APP_TOKEN
@@ -9,30 +9,30 @@ const baseURL =
   `&$limit=30000` +
   `&$order=address` +
   `&$where=`
-  
-  export const getManhattan = () => {
-    const manhattan = `boroname%20like%20%27%25Manhattan%25%27` 
-    console.log(baseURL + manhattan)
-    return baseURL + manhattan
-  }  
-let address = ''
+
+export const getManhattan = () => {
+  const manhattan = `boroname%20like%20%27%25Manhattan%25%27`
+  console.log(baseURL + manhattan)
+  return baseURL + manhattan
+}
+let address = ""
 
 const spaceFiller = (srch) => {
-  let srchArr = srch.split('')
+  let srchArr = srch.split("")
   srchArr.forEach((e, i) => {
-    if (e === ' ') {
+    if (e === " ") {
       // console.log(srch.charAt(i + 1))
       srchArr[i] = `%20`
     }
   })
-  address = srchArr.join('')
+  address = srchArr.join("")
   // console.log(address)
-  return (address)
+  return address
 }
 
 export const getAddress = (srch) => {
   const params = ["address", "zipcode", "nta_name"]
-  let address = srch.includes(' ') ? spaceFiller(srch) : srch
+  let address = srch.includes(" ") ? spaceFiller(srch) : srch
 
   // console.log(address)
   let str = "",
@@ -44,7 +44,6 @@ export const getAddress = (srch) => {
       orTail = `or${"%20"}`
     }
     if (e === "address") {
-
       str += `${e}%20like%20%27%25${address.toUpperCase()}%25%27` + orTail
     } else if (e === "nta_name") {
       str += `${e}%20like%20%27%25${capitalize(address)}%25%27` + orTail
@@ -57,19 +56,20 @@ export const getAddress = (srch) => {
 }
 
 export const getBySpecies = (spc, srch) => {
-console.log(spc,srch)
-  let address = srch.includes(' ') ? spaceFiller(srch) : srch
-  let spec = ''
-  if (spc.includes(' ')) {
-    let x = spc.substr(0, spc.indexOf(' '))
-    let y = spc.substr(spc.indexOf(' ') + 1)
-    spec = x + '%20' + y
+  console.log(spc, srch)
+  let address = srch.includes(" ") ? spaceFiller(srch) : srch
+  let spec = ""
+  if (spc.includes(" ")) {
+    let x = spc.substr(0, spc.indexOf(" "))
+    let y = spc.substr(spc.indexOf(" ") + 1)
+    spec = x + "%20" + y
   } else {
     spec = spc
   }
 
-  const str =
-    `(%20spc_common%20like%20%27%25${spec.toLowerCase()}%25%27or%20spc_common%20like%20%27%25${spec}%25%27)and(%20zipcode%20like%20%27%25${address}%25%27or%20address%20like%20%27%25${address}%25%27or%20nta_name%20like%20%27%25${capitalize(address)}%25%27or%20address%20like%20%27%25${address.toUpperCase()}%25%27)`
+  const str = `(%20spc_common%20like%20%27%25${spec.toLowerCase()}%25%27or%20spc_common%20like%20%27%25${spec}%25%27)and(%20zipcode%20like%20%27%25${address}%25%27or%20address%20like%20%27%25${address}%25%27or%20nta_name%20like%20%27%25${capitalize(
+    address
+  )}%25%27or%20address%20like%20%27%25${address.toUpperCase()}%25%27)`
   console.log(baseURL + str)
   return baseURL + str
 }

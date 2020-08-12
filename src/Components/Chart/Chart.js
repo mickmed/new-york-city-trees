@@ -16,7 +16,7 @@ class Chart extends Component {
     console.log(isMobile)
     let chart
     let series
-    if (this.props.isMobile) {
+    if (true) {
       // chart = am4core.create("chartdiv", am4charts.PieChart)
       // chart.radius = am4core.percent(5)
       // series = chart.series.push(new am4charts.PieSeries())

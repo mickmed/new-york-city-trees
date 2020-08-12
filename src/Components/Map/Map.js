@@ -46,7 +46,7 @@ class Map extends Component {
     }
   }
   componentDidMount() {
-    this.resizeMap()
+    // this.resizeMap()
     window.addEventListener("resize", () => this.resizeMap())
     this.resizeMap()
   }
@@ -143,11 +143,11 @@ class Map extends Component {
         <div
           className="treepin"
           style={this.state.style}
-          // onClick={() =>
-          //   this.setState({
-          //     tree: tree,
-          //   })
-          // }
+          onClick={() =>
+            this.setState({
+              tree: tree,
+            })
+          }
         >
           {/* {tree.status === "Alive" && (
             <p className="tree-emoji-alive" style={this.state.style}>{`\u{1F333}`}</p>
@@ -176,15 +176,17 @@ class Map extends Component {
             })
           }
         /> */}
+      
       </Marker>
     )
   }
-  _renderPopup(map) {
+  _renderPopup() {
     const { tree } = this.state
+    console.log('here', tree)
     return (
       tree && (
         <Popup
-          tipSize={50}
+          tipSize={5}
           offsetLeft={12}
           offsetTop={15}
           longitude={parseFloat(tree.longitude)}
@@ -246,6 +248,9 @@ class Map extends Component {
           <div className="nav" style={navStyle}>
             <NavigationControl onViewportChange={this.resizeIcon} />
           </div>
+          <Popup longitude={0} latitude={0} closeButton={false} closeOnClick={false}>
+    Hi there! 👋
+  </Popup>
         </ReactMapGL>
         {showFilters && (
           <TreesList

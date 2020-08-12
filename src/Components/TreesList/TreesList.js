@@ -18,19 +18,6 @@ class TreesList extends React.Component {
       console.log("Geolocation is not supported by this browser.")
     }
   }
-  // showPosition = (position) => {
-  //   console.log(
-  //     position.coords.latitude.toString() + position.coords.longitude.toString()
-  //   )
-  // }
-  // hoods = (neighbs) => {
-  //   let result = {}
-  //   for (let i = 0; i < neighbs.length; ++i) {
-  //     if (!result[neighbs[i]]) result[neighbs[i]] = 0
-  //     ++result[neighbs[i]]
-  //   }
-  //   return result
-  // }
   capitalize = (s) => {
     if (typeof s !== "string") return ""
     return s.charAt(0).toUpperCase() + s.slice(1)
@@ -42,31 +29,7 @@ class TreesList extends React.Component {
       speciesListClick,
     } = this.props
     const { capitalize } = this
-    //sort by count
-    // const spcCount = treesData.reduce(
-    //   (acc, { spc_common: curr }) => {
-    //     return (acc[curr] = acc[curr] + 1 || 1) && acc
-    //   },
-    //   {}
-    // )
-    // console.log(spcCount)
-    // let sorted = []
-    // for (let spc in spcCount) {
-    //   sorted.push([capitalize(spc), spcCount[spc]])
-    // }
-    // sorted.sort(function(a, b) {
-    //   return a[1] - b[1]
-    // })
-    // sorted.reverse()
-
-
-
     let sorted = this.props.speciesCount
-
-
-
-
-
     return (
       //  {showFilters && (
       <div className="tree-list">

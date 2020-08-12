@@ -47,11 +47,7 @@ class SearchBar extends Component {
     console.log("value", value)
 
     let srch = value
-    let trees =
-      srch &&
-      srch.length > 2 &&
-      // srch.length % 2 !== 0 &&
-      (await axios.get(getAddress(srch)))
+    let trees = srch && srch.length > 2 && (await axios.get(getAddress(srch)))
     // console.log(trees)
     let suggestions = [
       { title: "address", suggestions: [] },
@@ -80,6 +76,7 @@ class SearchBar extends Component {
   }
 
   onSuggestionsFetchRequested = async ({ value }) => {
+    console.log(value)
     if (!value) {
       this.setState({
         suggestions: [],
@@ -88,22 +85,22 @@ class SearchBar extends Component {
     }
     try {
       console.log(value.length)
-      if(value.length > 2){
-     
-      clearTimeout(ttr)
-      let ttr = setTimeout(async() => {
-       
-        let lonely = await this.fetchRequested(value)
+      if (value.length > 2) {
+        clearTimeout(ttr)
+        let ttr = setTimeout(async () => {
+          let resp = await this.fetchRequested(value)
 
+          this.setState({
+            suggestions: resp,
+          })
+        }, 300)
+      }else{
+        console.log('test')
         this.setState({
-        suggestions: lonely,
-      })
-      
-
-      }, 300)
-
-      
-    }
+          suggestions:[ { title: "loading...", suggestions: [{text:''}] }],
+        })
+        
+      }
     } catch (e) {
       this.setState({
         suggestions: [],
@@ -112,7 +109,6 @@ class SearchBar extends Component {
   }
 
   onSuggestionsClearRequested = () => {
-  
     this.setState({
       suggestions: [],
     })
@@ -138,22 +134,20 @@ class SearchBar extends Component {
     // return suggestion.text
   }
 
-  onKeyPress = async(event, str) => {
+  onKeyPress = async (event, str) => {
     event.preventDefault()
-   
 
-    setTimeout(async()=>{ 
+    setTimeout(async () => {
       // this.setState({
-       
+
       //   suggestions: [],
       // })
-      await this.props.getAddress(str, 'keyPress')
+      await this.props.getAddress(str, "keyPress")
       // this.setState({
-       
+
       //   suggestions: [],
       // })
-
-    },500)
+    }, 500)
   }
 
   render() {
@@ -179,7 +173,7 @@ class SearchBar extends Component {
             },
             onKeyDown: (event) => {
               // console.log(event.keyCode)
-              
+
               event.target.value.length > 3 &&
                 event.keyCode === 13 &&
                 this.onKeyPress(event, event.target.value)
@@ -195,7 +189,8 @@ class SearchBar extends Component {
             return suggestion.text
           }}
           renderSuggestion={(suggestion) => {
-            // console.log(suggestion)
+            console.log(suggestion)
+
             return <span>{suggestion.text}</span>
           }}
           renderSectionTitle={(section) => {
