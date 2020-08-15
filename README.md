@@ -37,7 +37,7 @@ This is a create-react-app project using NYC Open Data to map the trees of New Y
 <br>
 
 ### &#127807; API 
-- [2105 Street Tree Census Data](https://data.cityofnewyork.us/Environment/2015-Street-Tree-Census-Tree-Data/pi5s-9p35)
+- [2015 Street Tree Census Data](https://data.cityofnewyork.us/Environment/2015-Street-Tree-Census-Tree-Data/pi5s-9p35)
 - [API Docs](https://dev.socrata.com/foundry/data.cityofnewyork.us/5rq2-4hqu)
 
 
