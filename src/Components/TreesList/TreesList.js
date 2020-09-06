@@ -1,6 +1,5 @@
 import React from "react"
 import "./Treelist.scss"
-import { countSpecies } from '../Helpers/Shared.js'
 class TreesList extends React.Component {
   constructor() {
     super()
@@ -28,7 +27,6 @@ class TreesList extends React.Component {
       treesData,
       speciesListClick,
     } = this.props
-    const { capitalize } = this
     let sorted = this.props.speciesCount
     return (
       //  {showFilters && (
@@ -46,7 +44,7 @@ class TreesList extends React.Component {
           </div>  
         ) : (
           <div>
-            <img src="./images/tree.gif" />
+            <img src="./images/tree.gif" alt='tree.gif'/>
           </div>
         )}
       </div>

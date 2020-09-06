@@ -1,62 +1,39 @@
 .header {
 	display: flex;
-	flex-direction: column;
+	position: fixed;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+	z-index: 4;
 	margin: 0 auto;
-	background: rgb(238, 228, 209);
+	border-bottom: 1px solid black;
+	background: white;
+	// padding: 0 1vw;
 	width: 100%;
-    max-width: 1200px;
-   
-	// height: 20%;
-	justify-content: space-between;
+	max-width: 1200px;
+	font-family: 'Maitree', serif;
+	height:12vh;
+	font-size:3vh;
 	// margin: 2%;
-	// min-height: 20%;
-	// position: fixed;
-	// background: black;
-	.banner {
-		display: flex;
-		position: fixed;
-		flex-direction: column;
-		align-items: center;
-		z-index: 4;
-		margin: 0 auto;
-		border-bottom: 1px solid black;
-		background: white;
-		width: 100%;
-		max-width: 1200px;
-		height: 55px;
-		// justify-content: center;
-		.header-link {
-			text-decoration: none;
-			h2 {
-				margin: 2% 0 2% 0;
-				text-align: center;
-				color: black;
-				font-family: Raleway;
-			}
-		}
-		form {
-			display: flex;
-			justify-content: center;
-            width: 80%;
-            input{
-                // border:1px solid black;
-            }
-		}
+	h2 {
+		margin:0;
+		text-align: center;
+		color: black;
+		font-family: 'Maitree', serif;
+		letter-spacing: .5vh;
+		font-size:2.5vw;
+		// flex:1;
 	}
-	.nyc-logo {
-		display: flex;
-        justify-content: center;
-        align-items:flex-end;
-        margin-top: 85px;
-        margin-bottom:1%;
-        border: 2px;
-        height:20%;
-        // transform: translateY(100%);
-		img {
-			// margin: 2% 0 3%;
-			width: 70%;
-			// height: 50px;
-			// margin: 25% 0;
+	form {
+		// display: flex;
+		// justify-content: center;
+		flex:.75;
+		transform:translateY(-.5vh);
+		// height:5%;
+		input {
+			// border: .02vh solid black;
+			height:2%;
+			
 		}
 	}
 }
@@ -76,37 +53,20 @@
 				width: 55%;
 			}
 		}
-		.nyc-logo {
-            // margin-top: 10%;
-        // transform: translateY(140%);
-            
-			img {
-				margin-top: 0;
-				width: 60%;
-			}
-		}
 	}
 }
 @media only screen and (min-width: 900px) {
 	.header {
-		background:white;
+		// background: white;
 		.banner {
-			padding:1vh 0;
+			padding: 1vh 0;
 			.header-link {
 				h2 {
-					font-size:30px;
+					font-size: 30px;
 				}
 				form {
 					width: 35%;
 				}
-			}
-		}
-		.nyc-logo {
-			// margin-top: 10%;
-			// background:white;
-			img {
-				margin-top: 0;
-				width: 50%;
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 	position: relative;
 	margin: 0 auto;
 	width: 90%;
-	height: 80%;
+	height: 90%;
 	.tree-gif {
 		position: absolute;
 		left: 20%;
@@ -73,6 +73,9 @@
 	
 }
 @media only screen and (min-width: 600px) {
+	.map-wrapper{
+		// height:85%;
+	}
 	.icons{
 		bottom:25%;
 		ion-icon {

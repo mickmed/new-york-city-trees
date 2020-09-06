@@ -25,6 +25,8 @@ class Map extends Component {
     this.state = {
       showFilters: false,
       isMobile: false,
+      mounted:false,
+      scrollHeader:false,
       // trees: [],
       // boroname: "&boroname=Manhattan",
       // zipcode: "",
@@ -33,7 +35,7 @@ class Map extends Component {
       // health: "",
       viewport: {
         width: 1200,
-        height: 600,
+        height: 400,
         latitude: 0,
         longitude: 0,
         zoom: 14,
@@ -46,36 +48,60 @@ class Map extends Component {
     }
   }
   componentDidMount() {
-    // this.resizeMap()
+   
+    // this.setState({mounted:true})
+    console.log(this.props.containerHeight)
     window.addEventListener("resize", () => this.resizeMap())
     this.resizeMap()
   }
   resizeMap = () => {
+    
+
     const mapDims = document.querySelector(".map-wrapper")
-    // console.log('mapDims', mapDims.offsetHeight,mapDims.offsetWidth)
+    const mapDim = this.refs.mapWrapper
+    console.log('resize', mapDim.clientHeight, mapDims.clientHeight)
     this.onViewportChange({
-      width: mapDims.offsetWidth,
-      height: mapDims.offsetHeight,
+      width: mapDim.offsetWidth,
+      height: mapDim.offsetHeight,
     })
-    console.log(mapDims.offsetWidth)
-    this.setState({
-      isMobile: mapDims.offsetWidth <= 760,
-    })
+    
   }
   componentDidUpdate(prevProps, prevState) {
+    
+  //  console.log('cdu', this.props.resizeMap, prevProps.resizeMap)
     let { treesData, searchString } = this.props
     if (treesData !== prevProps.treesData) {
       this.changeLongLat(treesData, searchString)
+      
+    }
+    // console.log(prevProps.scrollHeader, this.props.scrollHeader, prevState.scrollHeader)
+    if(this.props.resizeMap !== prevProps.resizeMap){
+      console.log('here')
+      this.resizeMap()
+      // this.setState({scrollHeader:this.props.scrollHeader})
     }
   }
+
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //   console.log(nextProps, prevState)
+    // if (nextProps.treesData !== prevState.treesData) {
+    //   return { treesData: nextProps.treesData }
+    // } else return null
+  // }
   changeLongLat = (treesData, searchString) => {
     let index =
       treesData.length > 99 && searchString === "00083"
-        ? treesData.length - 100
+        ? treesData.length - 100 
         : treesData.length - 1
     let len = treesData.length
+    console.log(index)
     let zoom = len < 10 ? 17 : len < 100 ? 14 : 13
+   
     let iconSize = len < 10 ? "20" : len < 100 ? "10" : "4"
+    if(this.refs.mapWrapper.clientWidth > 600){
+      zoom += 1
+    }
+     console.log(zoom)
     let style = {
       height: iconSize + "px",
       width: iconSize + "px",
@@ -125,11 +151,7 @@ class Map extends Component {
       style: style,
     }))
   }
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   if (nextProps.treesData !== prevState.treesData) {
-  //     return { treesData: nextProps.treesData }
-  //   } else return null
-  // }
+
   _renderMarker = (tree, index) => {
     // let markers = ReactDOM.findDOMNode(this)
     return (
@@ -182,7 +204,7 @@ class Map extends Component {
   }
   _renderPopup() {
     const { tree } = this.state
-    console.log('here', tree)
+    // console.log('here', tree)
     return (
       tree && (
         <Popup
@@ -212,21 +234,25 @@ class Map extends Component {
       getAddress,
       searchType,
 
-      scrollHeader,
+     
       handleScroll,
       keyPress,
     } = this.props
     const trees = this.props.treesData && this.props.treesData
     let speciesCount = countSpecies(trees)
-    console.log(speciesCount)
+    // console.log(speciesCount)
     let style = keyPress ? { display: "block" } : { display: "none" }
 
     return (
-      <div className="map-wrapper" onClick={() => handleScroll()}>
+      <div 
+      className="map-wrapper" 
+      // onClick={() => handleScroll()} 
+      ref='mapWrapper'
+      >
         <div className="tree-gif" style={style}>
-          <img src="./images/tree.gif" />
+          <img src="./images/tree.gif" alt='tree gif' />
         </div>
-        <div className="icons">
+        <div className="icons" >
           <ion-icon onClick={() => handleFilterClick()} name="funnel-outline" />
           <ion-icon onClick={() => handlePieClick()} name="pie-chart-outline" />
         </div>
@@ -238,7 +264,9 @@ class Map extends Component {
           longitude={viewport.longitude}
           zoom={viewport.zoom}
           mapStyle="mapbox://styles/mapbox/streets-v9"
-          onViewportChange={this.resizeIcon}
+          // onViewportChange={()=>{
+          //   if(this.state.mounted){this.resizeIcon()}}}
+          onViewportChange = {this.resizeIcon}
           mapboxApiAccessToken={MAPBOX_TOKEN}
         >
           {/* <div onLoad={this.hello} /> */}
@@ -249,7 +277,7 @@ class Map extends Component {
             <NavigationControl onViewportChange={this.resizeIcon} />
           </div>
           <Popup longitude={0} latitude={0} closeButton={false} closeOnClick={false}>
-    Hi there! 👋
+    
   </Popup>
         </ReactMapGL>
         {showFilters && (

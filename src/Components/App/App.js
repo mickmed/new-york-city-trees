@@ -3,12 +3,11 @@ import axios from "axios"
 
 import Header from "../Header/Header.js"
 import Map from "../Map/Map.js"
-import Chart from "../Chart/Chart.js"
 import Footer from "../Footer/Footer.js"
 import "./App.scss"
 import { countSpecies } from "../Helpers/Shared.js"
 
-import { getManhattan, getAddress, getBySpecies } from "../Api/Api.js"
+import { getAddress, getBySpecies } from "../Api/Api.js"
 
 import { Route } from "react-router-dom"
 
@@ -21,12 +20,16 @@ class App extends Component {
       fixHeader: false,
       input: "",
       searchString: "",
-     
+
       showFilters: false,
       showPie: false,
       scrollHeader: false,
       keyPress: false,
+      resizeMap: false,
+      cont: "60vh",
     }
+    this.imgRef = React.createRef()
+    this.contRef = React.createRef()
   }
 
   async componentDidMount() {
@@ -43,22 +46,21 @@ class App extends Component {
   //     trees: trees.data,
   //     searchString: "Manhattan",
   //     searchType: "the boro of",
-  //   })
+  //   }) style={{height:window.innerHeight}}
   // }
   getAddress = async (srch, type) => {
-    console.log(type, "here", srch)
     if (type === "keyPress") {
       this.setState({
         keyPress: true,
       })
     }
     let trees = await axios.get(getAddress(srch))
-    console.log(trees)
     this.setState({
       trees: trees.data,
       searchString: srch,
       searchType: type,
       keyPress: false,
+      // containerHeight:this.refs.container.clientHeight
     })
   }
   speciesListClick = async (spc, srch) => {
@@ -68,9 +70,8 @@ class App extends Component {
     this.setState({
       trees: trees.data,
       showFilters: !this.state.showFilters,
-      
+
       showPie: false,
-    
     })
   }
 
@@ -86,14 +87,12 @@ class App extends Component {
     this.setState({
       showFilters: !this.state.showFilters,
       showPie: false,
-     
     })
   }
   handlePieClick = () => {
     this.setState({
       showFilters: false,
       showPie: !this.state.showPie,
-      
     })
   }
   handleScroll = () => {
@@ -102,23 +101,18 @@ class App extends Component {
     })
   }
 
-  scrollToView = async (headerHeight, bannerHeight, orig) => {
-    // console.log(headerHeight / 10)
+  scrollToView = async (headerHeight, orig) => {
+    
+    let imgHeight = getComputedStyle(this.imgRef.current).height.slice(0, -2)
 
-    // console.log(imgHeight, headerHeight, bannerHeight, window.pageYOffset)
+    orig === "header"
+      ? window.pageYOffset !== 0 &&
+        window.scrollTo({ top: 0, behavior: "smooth" })
+      : window.scrollTo({ top: imgHeight, behavior: "smooth" })
 
-    let time = 200
-    let fadeOut = await setInterval(() => {
-      time -= 20
-      // this.refs.img.style.opacity = time / 200
-      if (time === 0) {
-        clearInterval(fadeOut)
-        orig === "header"
-          ? window.pageYOffset !== 0 && window.scrollTo(0, 0)
-          : window.pageYOffset !== headerHeight - bannerHeight &&
-            window.scrollTo(0, headerHeight - bannerHeight)
-      }
-    }, 20)
+    orig === "header"
+      ? this.setState({ cont: "70vh", resizeMap: !this.state.resizeMap })
+      : this.setState({ cont: "80vh", resizeMap: !this.state.resizeMap })
   }
 
   render() {
@@ -135,13 +129,14 @@ class App extends Component {
     const {
       trees,
       searchString,
-      fixHeader,
+
       searchType,
-     
+
       showFilters,
       showPie,
       keyPress,
       scrollHeader,
+      resizeMap,
     } = this.state
     // console.log(searchString)
     let speciesCount = countSpecies(trees)
@@ -165,7 +160,10 @@ class App extends Component {
           // searchType={searchType}
         />
         <Route exact path="/">
-          <main className="container">
+          <main className="container" ref={this.contRef}>
+            <div className="nyc-logo" ref={this.imgRef}>
+              <img src="images/nyc.png" alt="nyc trees" />
+            </div>
             <div className="results-title">
               {searchType !== undefined && searchType !== "keyPress"
                 ? `${searchType}`
@@ -179,31 +177,33 @@ class App extends Component {
                 <span style={{ fontSize: "12px" }}>{` (${trees.length})`}</span>
               )}
             </div>
-            <Map
-              treesData={trees}
-              handleScroll={handleScroll}
-              searchString={searchString}
-              handleFilterClick={handleFilterClick}
-              handlePieClick={handlePieClick}
-              
-              showFilters={showFilters}
-              showPie={showPie}
-              // scrollToView={scrollToView}
-              // switch={this.state.switch}
-              // scrollHeader={this.scrollHeader}
+            <div className="mapo" style={{ height: this.state.cont }}>
+              <Map
+                treesData={trees}
+                resizeMap={resizeMap}
+                searchString={searchString}
+                handleFilterClick={handleFilterClick}
+                handlePieClick={handlePieClick}
+                containerHeight={this.state.containerHeight}
+                showFilters={showFilters}
+                showPie={showPie}
+                // scrollToView={scrollToView}
+                // switch={this.state.switch}
+                // scrollHeader={this.scrollHeader}
 
-              // handleClickSearch={handleClickSearch}
-              speciesListClick={speciesListClick}
-              // getAddress={getAddress}
-              // searchType={searchType}
-              // keyPress={keyPress}
-            />
+                // handleClickSearch={handleClickSearch}
+                speciesListClick={speciesListClick}
+                // getAddress={getAddress}
+                // searchType={searchType}
+                // keyPress={keyPress}
+              />
+            </div>
           </main>
         </Route>
         <Route path="/about">
           <div>site built by Mick Roth</div>
         </Route>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     )
   }

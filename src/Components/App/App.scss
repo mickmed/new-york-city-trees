@@ -1,60 +1,85 @@
 html {
-  // scroll-behavior: smooth;
-
-  body {
-    margin: 0;
-    padding: 0;
-    .App {
-      // width: 100%;
-      // background:black;
-      // background:lightgrey;
-      height: 80vh;
-      max-width:1200px;
-      margin:0 auto;
-      .container {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        height: 95vh;
-        padding: 0 1%;
-        font-size: 0.75em;
-        font-family: "Roboto", sans-serif;
-        position: relative;
-        background: rgb(255, 255, 255);
-        margin-top: 3%;
-        .results-title {
-          padding: 0 5% 2%;
-          font-size: 1.5em;
-          margin: 5% 0 3% 0;
-          span {
+	// scroll-behavior: smooth;
+	body {
+		margin: 0;
+		padding: 0;
+		.App {
+			margin: 0 auto;
+			max-width: 1200px;
+			height: 200vh;
+			// width: 100%;
+			// background: lightgrey;
+			.container {
+				padding-top: 12vh;
+				// display: flex;
+				// align-items: flex-start;
+				// flex-direction: column;
+				// height: 50%;
+				// paddg: 0 1%;
+				// font-size: 0.75em;
+				// font-family: "Roboto", sans-serif;
+				// position: relative;
+				// background: rgb(255, 255, 255);
+				// width: 90%;
+				// margin: 0 auto;
+				.nyc-logo {
+					// background: rgb(238, 228, 209);
+					height: 10vh;
+					display: flex;
+					justify-content: center;
+          align-items: center;
+          background: linear-gradient(rgb(238, 228, 209), white);
+          // background: linear-gradient(#e66465, #9198e5);
+				
+					img {
+						// margin: 25% 0;
+						// width: 10%;
+						height: 60%;
+					}
+        }
+        .mapo{
+          // height:60vh;
+        }
+				.results-title {
+          display:flex;
+          align-items:center;
+					margin: 0 3%;
+					// padding: 0 5% 2%;
+					width: 100%;
+					height: 10vh;
+          font-size: 4vh;
+				font-family: "Roboto", sans-serif;
+          
+					span {
             color: blue;
-          }
-        }
-      }
-    }
-  }
-  @media only screen and (min-width: 600px) {
-    body {
-      .App {
-        .container {
-          .results-title {
-            font-size: 1.5em;
-            margin:0;
-          }
-        }
-      }
-    }
-  }
-  @media only screen and (min-width: 900px) {
-    body {
-      .App {
-        .container {
-          .results-title {
-            font-size: 2em;
-            margin:0;
-          }
-        }
-      }
-    }
-  }
+            padding:1vw;
+					}
+				}
+			}
+		}
+	}
+	@media only screen and (min-width: 600px) {
+		body {
+			.App {
+				.container {
+					// .results-title {
+					// 	margin: 0;
+					// 	font-size: 1.5em;
+					// }
+				}
+			}
+		}
+	}
+	@media only screen and (min-width: 900px) {
+		body {
+			.App {
+				.container {
+					// .results-title {
+					// 	margin: 0;
+					// 	font-size: 2em;
+					// }
+				}
+			}
+		}
+	}
 }

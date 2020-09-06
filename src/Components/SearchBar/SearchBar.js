@@ -33,18 +33,18 @@ class SearchBar extends Component {
     }
   }
 
-  componentDidMount() {
-    this.isMobile() &&
-      this.setState({
-        isMobile: true,
-      })
-  }
-  isMobile() {
-    return window.orientation > -1
-  }
+  // componentDidMount() {
+  //   this.isMobile() &&
+  //     this.setState({
+  //       isMobile: true,
+  //     })
+  // }
+  // isMobile() {
+  //   return window.orientation > -1
+  // }
 
   fetchRequested = async (value) => {
-    console.log("value", value)
+    // console.log("value", value)
 
     let srch = value
     let trees = srch && srch.length > 2 && (await axios.get(getAddress(srch)))
@@ -76,7 +76,7 @@ class SearchBar extends Component {
   }
 
   onSuggestionsFetchRequested = async ({ value }) => {
-    console.log(value)
+    
     if (!value) {
       this.setState({
         suggestions: [],
@@ -84,10 +84,10 @@ class SearchBar extends Component {
       return
     }
     try {
-      console.log(value.length)
       if (value.length > 2) {
-        clearTimeout(ttr)
-        let ttr = setTimeout(async () => {
+        let requestTimer 
+        clearTimeout(requestTimer)
+        requestTimer = setTimeout(async () => {
           let resp = await this.fetchRequested(value)
 
           this.setState({
@@ -95,7 +95,6 @@ class SearchBar extends Component {
           })
         }, 300)
       }else{
-        console.log('test')
         this.setState({
           suggestions:[ { title: "loading...", suggestions: [{text:''}] }],
         })
@@ -173,10 +172,12 @@ class SearchBar extends Component {
             },
             onKeyDown: (event) => {
               // console.log(event.keyCode)
+              // event.preventDefault()
+              if(event.keyCode === 13){
+                 
+                  this.onKeyPress(event, event.target.value)
 
-              event.target.value.length > 3 &&
-                event.keyCode === 13 &&
-                this.onKeyPress(event, event.target.value)
+                } 
             },
           }}
           multiSection={true}
@@ -189,7 +190,7 @@ class SearchBar extends Component {
             return suggestion.text
           }}
           renderSuggestion={(suggestion) => {
-            console.log(suggestion)
+            
 
             return <span>{suggestion.text}</span>
           }}
