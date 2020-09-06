@@ -1,9 +1,9 @@
 .header {
 	display: flex;
 	position: fixed;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-around;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items:center;
 	z-index: 4;
 	margin: 0 auto;
 	border-bottom: 1px solid black;
@@ -11,63 +11,57 @@
 	// padding: 0 1vw;
 	width: 100%;
 	max-width: 1200px;
-	font-family: 'Maitree', serif;
-	height:12vh;
-	font-size:3vh;
+	font-family: "Maitree", serif;
+	height: 12vh;
+	font-size: 3vh;
 	// margin: 2%;
 	h2 {
-		margin:0;
+		margin: 0;
 		text-align: center;
 		color: black;
-		font-family: 'Maitree', serif;
-		letter-spacing: .5vh;
-		font-size:2.5vw;
+		font-family: "Maitree", serif;
+		letter-spacing: 0.5vh;
+		font-size: 3vw;
 		// flex:1;
+		display:flex;
+		align-items:center;
 	}
 	form {
 		// display: flex;
 		// justify-content: center;
-		flex:.75;
-		transform:translateY(-.5vh);
+		
+		width:50%;
+		// transform:translateY(-.5vh);
 		// height:5%;
-		input {
-			// border: .02vh solid black;
-			height:2%;
-			
-		}
+
 	}
 }
 @media only screen and (min-width: 600px) {
 	.header {
-		// height: 22%;
-		.banner {
-			flex-direction: row;
-			justify-content: space-around;
-			.header-link {
-				h2 {
-					transform: translateY(10%);
-					font-size: 3vw;
-				}
-			}
-			form {
-				width: 55%;
-			}
+		flex-direction:row;
+		justify-content: space-around;
+
+		h2 {
+			// transform: translateY(10%);
+			font-size: 2.5w;
+			// align-items:flex-start;
 		}
+		form {
+		width: 40%;
+		
 	}
+	}
+	
 }
 @media only screen and (min-width: 900px) {
 	.header {
 		// background: white;
-		.banner {
-			padding: 1vh 0;
-			.header-link {
-				h2 {
-					font-size: 30px;
-				}
-				form {
-					width: 35%;
-				}
-			}
+
+		h2 {
+			
+		}
+		form {
+			width: 35%;
 		}
 	}
 }

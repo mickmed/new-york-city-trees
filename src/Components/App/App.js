@@ -26,7 +26,7 @@ class App extends Component {
       scrollHeader: false,
       keyPress: false,
       resizeMap: false,
-      cont: "60vh",
+      mapCont: "70vh",
     }
     this.imgRef = React.createRef()
     this.contRef = React.createRef()
@@ -111,8 +111,8 @@ class App extends Component {
       : window.scrollTo({ top: imgHeight, behavior: "smooth" })
 
     orig === "header"
-      ? this.setState({ cont: "70vh", resizeMap: !this.state.resizeMap })
-      : this.setState({ cont: "80vh", resizeMap: !this.state.resizeMap })
+      ? this.setState({ mapCont: "70vh", resizeMap: !this.state.resizeMap })
+      : this.setState({ mapCont: "80vh", resizeMap: !this.state.resizeMap })
   }
 
   render() {
@@ -177,7 +177,7 @@ class App extends Component {
                 <span style={{ fontSize: "12px" }}>{` (${trees.length})`}</span>
               )}
             </div>
-            <div className="mapo" style={{ height: this.state.cont }}>
+            <div className="map-container" style={{ height: this.state.mapCont }}>
               <Map
                 treesData={trees}
                 resizeMap={resizeMap}

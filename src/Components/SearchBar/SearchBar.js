@@ -156,14 +156,12 @@ class SearchBar extends Component {
       <form onSubmit={this.props.onsubmit}>
         <Autosuggest
           inputProps={{
-            placeholder: "address...",
+            placeholder: "search address, zipcode, neighorhood...",
 
             value: value,
             type: "text",
             name: "input",
-            style: {
-              background: "lightyellow",
-            },
+          
             onClick: () => this.props.handleScroll(),
             onChange: (event, { newValue, method }) => {
               this.setState({
