@@ -1,10 +1,8 @@
-
-
 export const countSpecies = (treesData) => {
   const spcCount = treesData.reduce((acc, { spc_common: curr }) => {
     return (acc[curr] = acc[curr] + 1 || 1) && acc
   }, {})
-  // console.log(spcCount)
+			
   let sorted = []
   for (let spc in spcCount) {
     sorted.push([capitalize(spc), spcCount[spc]])
@@ -15,20 +13,19 @@ export const countSpecies = (treesData) => {
   return sorted.reverse()
 }
 
- export const capitalize = (s) => {
+export const capitalize = (s) => {
   if (typeof s !== "string") return ""
   return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
 export const capitalizeAll = (str) => {
-  
-  if(str.includes(' ')){
-    // console.log('hi there')
-    let x = str.split(' ')
-    let z = x.map(y=>{
+  if (str.includes(" ")) {
+			
+    let x = str.split(" ")
+    let z = x.map((y) => {
       y.charAt(0).toUpperCase()
-    return y.charAt(0).toUpperCase() + y.slice(1)
+      return y.charAt(0).toUpperCase() + y.slice(1)
     })
-    return z.join(' ')
+    return z.join(" ")
   }
 }

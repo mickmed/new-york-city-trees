@@ -11,40 +11,27 @@
 		width: 70%;
 		height: 80%;
 		img {
-			// height: 100%;
-			// width: 100%;
 		}
 	}
 	.icons {
-		border-radius:5px;
+		border-radius: 5px;
 		display: flex;
 		position: absolute;
-
-		bottom: 10px;
+		bottom: 8px;
 		right: 8px;
-		flex-direction: column;
+		flex-direction: row;
 		justify-content: space-between;
 		z-index: 3;
 		border-radius: 5px;
-		box-shadow: .5px .5px 0px grey;
-		
-		background: linear-gradient(0.5turn, #3f87a6, #ebf8e1, #f69d3c);
-		// background: linear-gradient(0.5turn, #3f87a6, black, #f69d3c);
-
+		box-shadow: 0.5px 0.5px 0px grey;
+		background: linear-gradient(#3f87a6, #ebf8e1, #f69d3c);
 		box-sizing: border-box;
 		padding: 8px;
-		height:100px;
-		
+		width: 80px;
 		ion-icon {
 			z-index: 3;
-			// background-color: rgb(238, 228, 209);
-			// background: white;
-			// border:.5px solid grey;
-			// font-size:50%;
-			// padding: 4%;
 			color: black;
-			font-size: 1.5em;
-			// border: 1px solid red;
+			font-size: 20px;
 		}
 	}
 	.nav {
@@ -62,26 +49,31 @@
 		padding: 5px;
 		color: blue;
 		font-size: 1em;
-		/* width: 300px;
-		*/
-    z-index: 5;
+		z-index: 5;
 	}
 	.treepin {
 		border-radius: 50%;
 		background: green;
 	}
-	
+}
+.mapbox-logo {
+	display: none;
+}
+.mapboxgl-ctrl-logo {
+	display: none !important;
+}
+.mapbox-improve-map {
+	display: none;
+}
+.mapboxgl-ctrl-compass {
+	display: none;
 }
 @media only screen and (min-width: 600px) {
-	.map-wrapper{
-		// height:85%;
-	}
-	.icons{
-		bottom:25%;
+	.icons {
+		bottom: 25%;
 		ion-icon {
 			left: 1%;
 			font-size: 4em;
 		}
 	}
-		
-	}
+}

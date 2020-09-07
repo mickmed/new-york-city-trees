@@ -7,7 +7,6 @@ import ReactMapGL, {
 } from "react-map-gl"
 // import TreePin from "./tree-pin.js";
 import TreeInfo from "../TreesList/TreeInfo.js"
-// import ControlPanel from "./control-panel.js";
 import "./Map.scss"
 import TreesList from "../TreesList/TreesList"
 import Chart from "../Chart/Chart.js"
@@ -25,14 +24,9 @@ class Map extends Component {
     this.state = {
       showFilters: false,
       isMobile: false,
-      mounted:false,
-      scrollHeader:false,
-      // trees: [],
-      // boroname: "&boroname=Manhattan",
-      // zipcode: "",
-      // spc_common: "",
-      // status: "&status=Alive",
-      // health: "",
+      mounted: false,
+      scrollHeader: false,
+   
       viewport: {
         width: 1200,
         height: 400,
@@ -40,74 +34,52 @@ class Map extends Component {
         longitude: 0,
         zoom: 14,
       },
-      // lat: 0,
-      // long: 0,
-      // info: null,
-      // popupInfo: null,
-      // tree: null
+  
     }
   }
   componentDidMount() {
-   
-   
     window.addEventListener("resize", () => this.resizeMap())
     this.resizeMap()
   }
   resizeMap = () => {
-    
-
-    const mapDims = document.querySelector(".map-wrapper")
     const mapDim = this.refs.mapWrapper
-    // console.log('resize', mapDim.clientHeight, mapDims.clientHeight)
     this.onViewportChange({
       width: mapDim.offsetWidth,
       height: mapDim.offsetHeight,
     })
-    
   }
   componentDidUpdate(prevProps, prevState) {
-    
-  //  console.log('cdu', this.props.resizeMap, prevProps.resizeMap)
     let { treesData, searchString } = this.props
     if (treesData !== prevProps.treesData) {
       this.changeLongLat(treesData, searchString)
-      
     }
-    // console.log(prevProps.scrollHeader, this.props.scrollHeader, prevState.scrollHeader)
-    if(this.props.resizeMap !== prevProps.resizeMap){
-    
+    if (this.props.resizeMap !== prevProps.resizeMap) {
       this.resizeMap()
-      // this.setState({scrollHeader:this.props.scrollHeader})
     }
   }
-
-    // static getDerivedStateFromProps(nextProps, prevState) {
-    //   console.log(nextProps, prevState)
-    // if (nextProps.treesData !== prevState.treesData) {
-    //   return { treesData: nextProps.treesData }
-    // } else return null
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   console.log(nextProps, prevState)
+  // if (nextProps.treesData !== prevState.treesData) {
+  //   return { treesData: nextProps.treesData }
+  // } else return null
   // }
   changeLongLat = (treesData, searchString) => {
     let index =
       treesData.length > 99 && searchString === "00083"
-        ? treesData.length - 100 
+        ? treesData.length - 100
         : treesData.length - 1
     let len = treesData.length
-  
     let zoom = len < 10 ? 17 : len < 100 ? 14 : 13
-   
     let iconSize = len < 10 ? "20" : len < 100 ? "10" : "4"
-    if(this.refs.mapWrapper.clientWidth > 600){
+    if (this.refs.mapWrapper.clientWidth > 600) {
       zoom += 1
     }
-    
     let style = {
       height: iconSize + "px",
       width: iconSize + "px",
       transform: `translate('${80}px','${80}px')`,
       background: `green`,
     }
-    // console.log(treesData[0], index)
     treesData[0] &&
       this.onViewportChange(
         {
@@ -115,7 +87,7 @@ class Map extends Component {
           latitude: parseFloat(treesData[index].latitude),
           zoom: zoom,
           transitionInterpolater: new FlyToInterpolator({ speed: 20 }),
-          transitionDuration: 'auto'
+          transitionDuration: "auto",
         },
         style
       )
@@ -135,7 +107,6 @@ class Map extends Component {
     let style = {
       height: iconSize + "px",
       width: iconSize + "px",
-      // transform: `translate(${iconSize^2}px,${iconSize^2}px)`,
       background: `green`,
     }
     this.onViewportChange(viewport, style)
@@ -150,13 +121,9 @@ class Map extends Component {
       style: style,
     }))
   }
-
   _renderMarker = (tree, index) => {
-    // let markers = ReactDOM.findDOMNode(this)
     return (
       <Marker
-        // className='treepin'
-        // style={{backgroundColor:"black !mportant", height:"50px", width:"50px"}}
         key={index}
         longitude={parseFloat(tree.longitude)}
         latitude={parseFloat(tree.latitude)}
@@ -183,21 +150,6 @@ class Map extends Component {
             <p className="tree-emoji-dead" title={`\u{1F334}`}>{`\u{1F334}`}</p>
           )} */}
         </div>
-        {/* <TreePin
-          size={20}
-          onClick={() =>
-            this.setState({
-              const navStyle = {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  padding: "10px"
-};
-              tree: tree
-            })
-          }
-        /> */}
-      
       </Marker>
     )
   }
@@ -232,8 +184,6 @@ class Map extends Component {
       speciesListClick,
       getAddress,
       searchType,
-
-     
       handleScroll,
       keyPress,
     } = this.props
@@ -241,17 +191,16 @@ class Map extends Component {
     let speciesCount = countSpecies(trees)
     // console.log(speciesCount)
     let style = keyPress ? { display: "block" } : { display: "none" }
-
     return (
-      <div 
-      className="map-wrapper" 
-      // onClick={() => handleScroll()} 
-      ref='mapWrapper'
+      <div
+        className="map-wrapper"
+        onClick={() => handleScroll()}
+        ref="mapWrapper"
       >
         <div className="tree-gif" style={style}>
-          <img src="./images/tree.gif" alt='tree gif' />
+          <img src="./images/tree.gif" alt="tree gif" />
         </div>
-        <div className="icons" >
+        <div className="icons">
           <ion-icon onClick={() => handleFilterClick()} name="funnel-outline" />
           <ion-icon onClick={() => handlePieClick()} name="pie-chart-outline" />
         </div>
@@ -263,21 +212,20 @@ class Map extends Component {
           longitude={viewport.longitude}
           zoom={viewport.zoom}
           mapStyle="mapbox://styles/mapbox/streets-v9"
-          // onViewportChange={()=>{
-          //   if(this.state.mounted){this.resizeIcon()}}}
-          onViewportChange = {this.resizeIcon}
+          onViewportChange={this.resizeIcon}
           mapboxApiAccessToken={MAPBOX_TOKEN}
         >
-          {/* <div onLoad={this.hello} /> */}
-          {/* {this.state.tree && this.state.tree.latitude} */}
           {trees.length && trees.map(this._renderMarker)}
           {this._renderPopup()}
           <div className="nav" style={navStyle}>
             <NavigationControl onViewportChange={this.resizeIcon} />
           </div>
-          <Popup longitude={0} latitude={0} closeButton={false} closeOnClick={false}>
-    
-  </Popup>
+          <Popup
+            longitude={0}
+            latitude={0}
+            closeButton={false}
+            closeOnClick={false}
+          />
         </ReactMapGL>
         {showFilters && (
           <TreesList
@@ -289,7 +237,6 @@ class Map extends Component {
             getAddress={getAddress}
             searchType={searchType}
             showFilters={showFilters}
-            // scrollToView={scrollToView}
           />
         )}
         {showPie && <Chart speciesCount={speciesCount} isMobile={isMobile} />}

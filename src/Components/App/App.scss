@@ -1,5 +1,4 @@
 html {
-	// scroll-behavior: smooth;
 	body {
 		margin: 0;
 		padding: 0;
@@ -7,52 +6,31 @@ html {
 			margin: 0 auto;
 			max-width: 1200px;
 			height: 200vh;
-			// width: 100%;
-			// background: lightgrey;
 			.container {
 				padding-top: 12vh;
-				// display: flex;
-				// align-items: flex-start;
-				// flex-direction: column;
-				// height: 50%;
-				// paddg: 0 1%;#eee4d1,
-				// font-size: 0.75em;
-				// font-family: "Roboto", sans-serif;
-				// position: relative;
-				// background: rgb(255, 255, 255);
-				// width: 90%;
-				// margin: 0 auto;
 				.nyc-logo {
-					// background: rgb(238, 228, 209);
-					height: 10vh;
 					display: flex;
+					align-items: center;
 					justify-content: center;
-          align-items: center;
-          background: linear-gradient(rgb(238, 228, 209), white);
-          // background: linear-gradient(#e66465, #9198e5);
-				
+					background: linear-gradient(rgb(238, 228, 209), white);
+					height: 10vh;
 					img {
-						// margin: 25% 0;
-						// width: 10%;
 						height: 60%;
 					}
-        }
-        .map-container{
-          // height:60vh;
-        }
+				}
+				.map-container {
+				}
 				.results-title {
-          display:flex;
-          align-items:center;
+					display: flex;
+					align-items: center;
 					margin: 0 3%;
-					// padding: 0 5% 2%;
 					width: 94%;
 					height: 10vh;
-          font-size: 3vh;
-				font-family: "Roboto", sans-serif;
-          
+					font-family: "Roboto", sans-serif;
+					font-size: 3vh;
 					span {
-            color: blue;
-            padding:1vw;
+						padding: 1vw;
+						color: blue;
 					}
 				}
 			}
@@ -62,10 +40,6 @@ html {
 		body {
 			.App {
 				.container {
-					// .results-title {
-					// 	margin: 0;
-					// 	font-size: 1.5em;
-					// }
 				}
 			}
 		}
@@ -74,10 +48,6 @@ html {
 		body {
 			.App {
 				.container {
-					// .results-title {
-					// 	margin: 0;
-					// 	font-size: 2em;
-					// }
 				}
 			}
 		}

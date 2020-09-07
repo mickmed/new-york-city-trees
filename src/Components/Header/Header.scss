@@ -3,66 +3,50 @@
 	position: fixed;
 	flex-direction: column;
 	justify-content: space-evenly;
-	align-items:center;
+	align-items: center;
 	z-index: 4;
 	margin: 0 auto;
 	border-bottom: 1px solid black;
 	background: white;
-	// padding: 0 1vw;
 	width: 100%;
 	max-width: 1200px;
 	font-family: "Maitree", serif;
 	height: 12vh;
-
-	// margin: 2%;
 	h2 {
 		margin: 0;
 		color: black;
 		font-family: "Maitree", serif;
 		letter-spacing: 0.5vh;
 		font-size: 3.5vw;
-		// flex:1;
-		display:flex;
-		// flex:1;
+		display: flex;
 	}
 	form {
-		// display: flex;
-		// justify-content: center;
-		display:flex;
-		justify-content:center;
-		width:40%;
-		// flex:1;
-		// transform:translateY(-.5vh);
-		// height:5%;
-
+		display: flex;
+		width: 40%;
+		button {
+			background: white;
+			border: 0;
+		}
 	}
 }
 @media only screen and (min-width: 600px) {
 	.header {
-		flex-direction:row;
+		flex-direction: row;
 		justify-content: space-around;
-
 		h2 {
-			// transform: translateY(10%);
 			font-size: 2.5vw;
-			// align-items:flex-start;
 		}
 		form {
-		width: 35%;
-		
+			width: 35%;
+		}
 	}
-	}
-	
 }
 @media only screen and (min-width: 900px) {
 	.header {
-		// background: white;
-
 		h2 {
 			font-size: 1.5vw;
 		}
 		form {
-			// width: 35%;
 		}
 	}
 }
