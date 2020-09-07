@@ -166,9 +166,9 @@ class App extends Component {
             </div>
             <div className="results-title">
               {searchType !== undefined && searchType !== "keyPress"
-                ? `${searchType}`
+                ? `${searchType}:`
                 : trees.length !== 0
-                ? "result"
+                ? "result:"
                 : ""}
               <span
                 onClick={() => getAddress(searchString, searchType)}

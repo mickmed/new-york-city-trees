@@ -37,7 +37,7 @@ class header extends Component {
               )
             }
           >
-            NEW YORK CITY TREES
+            {`\u{1F333}`}NEW YORK CITY TREES
           </h2>
 
           <SearchBar

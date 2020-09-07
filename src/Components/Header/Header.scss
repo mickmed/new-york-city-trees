@@ -13,24 +13,25 @@
 	max-width: 1200px;
 	font-family: "Maitree", serif;
 	height: 12vh;
-	font-size: 3vh;
+
 	// margin: 2%;
 	h2 {
 		margin: 0;
-		text-align: center;
 		color: black;
 		font-family: "Maitree", serif;
 		letter-spacing: 0.5vh;
-		font-size: 3vw;
+		font-size: 3.5vw;
 		// flex:1;
 		display:flex;
-		align-items:center;
+		// flex:1;
 	}
 	form {
 		// display: flex;
 		// justify-content: center;
-		
-		width:50%;
+		display:flex;
+		justify-content:center;
+		width:40%;
+		// flex:1;
 		// transform:translateY(-.5vh);
 		// height:5%;
 
@@ -43,11 +44,11 @@
 
 		h2 {
 			// transform: translateY(10%);
-			font-size: 2.5w;
+			font-size: 2.5vw;
 			// align-items:flex-start;
 		}
 		form {
-		width: 40%;
+		width: 35%;
 		
 	}
 	}
@@ -58,10 +59,10 @@
 		// background: white;
 
 		h2 {
-			
+			font-size: 1.5vw;
 		}
 		form {
-			width: 35%;
+			// width: 35%;
 		}
 	}
 }

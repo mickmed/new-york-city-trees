@@ -49,8 +49,7 @@ class Map extends Component {
   }
   componentDidMount() {
    
-    // this.setState({mounted:true})
-    console.log(this.props.containerHeight)
+   
     window.addEventListener("resize", () => this.resizeMap())
     this.resizeMap()
   }
@@ -59,7 +58,7 @@ class Map extends Component {
 
     const mapDims = document.querySelector(".map-wrapper")
     const mapDim = this.refs.mapWrapper
-    console.log('resize', mapDim.clientHeight, mapDims.clientHeight)
+    // console.log('resize', mapDim.clientHeight, mapDims.clientHeight)
     this.onViewportChange({
       width: mapDim.offsetWidth,
       height: mapDim.offsetHeight,
@@ -76,7 +75,7 @@ class Map extends Component {
     }
     // console.log(prevProps.scrollHeader, this.props.scrollHeader, prevState.scrollHeader)
     if(this.props.resizeMap !== prevProps.resizeMap){
-      console.log('here')
+    
       this.resizeMap()
       // this.setState({scrollHeader:this.props.scrollHeader})
     }
@@ -94,14 +93,14 @@ class Map extends Component {
         ? treesData.length - 100 
         : treesData.length - 1
     let len = treesData.length
-    console.log(index)
+  
     let zoom = len < 10 ? 17 : len < 100 ? 14 : 13
    
     let iconSize = len < 10 ? "20" : len < 100 ? "10" : "4"
     if(this.refs.mapWrapper.clientWidth > 600){
       zoom += 1
     }
-     console.log(zoom)
+    
     let style = {
       height: iconSize + "px",
       width: iconSize + "px",

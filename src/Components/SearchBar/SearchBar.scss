@@ -3,7 +3,7 @@
 
 .react-autosuggest__container {
     // position: relative;
-   
+   width:100%;
     
   }
   
@@ -11,10 +11,10 @@
     width: 100%;
     // transform:scale(2,1);
     // min-height: 2em;
-    padding: .5vh 1vw;
+    padding: .5vh 0;
     // font-family: Helvetica, sans-serif;
     // font-weight: 300;
-    font-size: 2vw;
+    font-size: 3vw;
     border:0;
     border-bottom: 1px solid #aaa;
     // border-radius: 4px;
@@ -23,10 +23,22 @@
     
     
   }
+  @media only screen and(min-width:600px){
+    .react-autosuggest__input{
+      font-size:2vw;
+    }
+    
+  }
+  @media only screen and(min-width:900px){
+    .react-autosuggest__input{
+      font-size:1vw;
+    }
+    
+  }
   
   .react-autosuggest__input:placeholder-shown {
-    font-style:italic;
-    text-align:center;
+    // font-style:italic;
+    text-align:right;
   }
 
   .react-autosuggest__input--focused {
@@ -48,7 +60,7 @@
     display: block;
     position: absolute;
    
-    width: 40%;
+    width:40%;
     border: 1px solid #aaa;
     background-color: lightyellow;
     font-family: Helvetica, sans-serif;
@@ -60,6 +72,10 @@
     overflow-y: scroll;
     // height:1000%;
 
+  }
+
+  @media only screen and (min-widht:600px){
+    width: 35%;
   }
   
   .react-autosuggest__suggestions-list {

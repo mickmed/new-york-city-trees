@@ -4,7 +4,7 @@ const TOKEN = process.env.REACT_APP_TOKEN
 const baseURL =
   `https://data.cityofnewyork.us/resource/5rq2-4hqu.json?` +
   `$$app_token=${TOKEN}` +
-  `&$limit=300` +
+  `&$limit=30000` +
   `&$order=address` +
   `&$where=`
 export const getManhattan = () => {
