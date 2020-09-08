@@ -197,6 +197,7 @@ class Map extends Component {
         onClick={() => handleScroll()}
         ref="mapWrapper"
       >
+        
         <div className="tree-gif" style={style}>
           <img src="./images/tree.gif" alt="tree gif" />
         </div>
