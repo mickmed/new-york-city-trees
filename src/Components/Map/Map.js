@@ -194,7 +194,7 @@ class Map extends Component {
     return (
       <div
         className="map-wrapper"
-        onClick={() => handleScroll()}
+        // onClick={() => handleScroll()}
         ref="mapWrapper"
       >
         
