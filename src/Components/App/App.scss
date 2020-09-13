@@ -2,10 +2,13 @@ html {
 	body {
 		margin: 0;
 		padding: 0;
+
 		.App {
 			margin: 0 auto;
-			max-width: 1200px;
+			// max-width: 1400px;
 			height: 200vh;
+			overflowY:hidden;
+	
 			.container {
 				padding-top: 12vh;
 				.nyc-logo {
@@ -48,8 +51,15 @@ html {
 		body {
 			.App {
 				.container {
+					.results-title{
+						height:8vh;
+					}
 				}
 			}
 		}
 	}
+}
+
+::-webkit-scrollbar {
+	display: none;
 }

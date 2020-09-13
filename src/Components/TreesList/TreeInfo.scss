@@ -40,3 +40,20 @@
    
   }
 }
+
+@media only screen and (min-width:600px){
+  .mapboxgl-popup-close-button {
+    color: black;
+    font-size: 2vw;
+    
+  }
+  .popup {
+    background-color: rgb(247, 247, 239);
+    // background: linear-gradient(white, rgb(238, 228, 209) );
+  
+    padding: 2vw 3vw;
+    color: rgb(0, 0, 0);
+    font-size: 1vw;
+   
+  }
+}

@@ -9,7 +9,7 @@
 	border-bottom: 1px solid black;
 	background: white;
 	width: 100%;
-	max-width: 1200px;
+	// max-width: 1400px;
 	font-family: "Maitree", serif;
 	height: 12vh;
 	h2 {
@@ -47,6 +47,9 @@
 			font-size: 1.5vw;
 		}
 		form {
+			button{
+				font-size:1.5vw;
+			}
 		}
 	}
 }
