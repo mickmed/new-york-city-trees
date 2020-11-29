@@ -57,7 +57,7 @@ class SearchBar extends Component {
           this.setState({
             suggestions: resp,
           })
-        }, 300)
+        }, 1000)
       } else {
         this.setState({
           suggestions: [{ title: "loading...", suggestions: [{ text: "" }] }],
