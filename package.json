@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@amcharts/amcharts4": "^4.10.0",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "bulma": "^0.7.5",
     "dotenv": "^6.2.0",
     "font-awesome": "^4.7.0",
