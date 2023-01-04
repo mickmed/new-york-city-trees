@@ -15,7 +15,7 @@
     "react-map-gl": "^5.2.8",
     "react-responsive": "^6.1.2",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "2.1.3",
+    "react-scripts": "5.0.1",
     "suggestion-react-input-search": "^1.4.0"
   },
   "scripts": {
